@@ -1,17 +1,13 @@
 import express, { Express, Request, Response } from "express";
+import userController from "./controllers/user.controller";
 const port = 3000;
 
 const app: Express = express();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("HELLO FROM EXPRESS + TS!!!!");
-});
+app.use(express.json());
 
-app.get("/hi", (req: Request, res: Response) => {
-  res.send("BYEEE!!");
-});
+app.use('/user', userController);
 
 app.listen(port, () => {
   console.log(`now listening on port ${port}`);
 });
-
