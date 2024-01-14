@@ -1,0 +1,34 @@
+### Create a new reaction
+POST http://localhost:3000/reaction/create
+Content-Type: application/json
+
+{
+  "reaction_type": 1,
+  "post_id": 6,
+  "user_id": 2
+}
+
+### Get reaction by id
+GET http://localhost:3000/reaction/find/:id
+Content-Type: application/json
+
+{
+  "id": 3
+}
+
+### Update reaction by id
+PUT http://localhost:3000/reaction/update/:id
+Content-Type: application/json
+
+{
+  "id": 3,
+  "reaction_type": 2
+}
+
+### Delete reaction by id
+DELETE http://localhost:3000/reaction/delete/:id
+Content-Type: application/json
+
+{
+  "id": 3
+}

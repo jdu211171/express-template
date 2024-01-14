@@ -1,10 +1,10 @@
-import {Prisma, PrismaClient, user} from '@prisma/client';
+import {Prisma, PrismaClient, User} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 class UsersRepository {
 
-    async createUser(data: Prisma.userCreateInput): Promise<user> {
+    async createUser(data: Prisma.UserCreateInput): Promise<User> {
         try {
             return await prisma.user.create({
                 data,
@@ -15,7 +15,7 @@ class UsersRepository {
         }
     }
 
-    async findUserById(id: number): Promise<user | null> {
+    async findUserById(id: number): Promise<User | null> {
         try {
             return await prisma.user.findUnique({
                 where: {
@@ -28,7 +28,7 @@ class UsersRepository {
         }
     }
 
-    async updateUserById(id: number, data: Prisma.userUpdateInput): Promise<user> {
+    async updateUserById(id: number, data: Prisma.UserUpdateInput): Promise<User> {
         try {
             return await prisma.user.update({
                 where: {
@@ -44,7 +44,7 @@ class UsersRepository {
         }
     }
 
-    async deleteUserById(id: number): Promise<user> {
+    async deleteUserById(id: number): Promise<User> {
         try {
             return await prisma.user.delete({
                 where: {

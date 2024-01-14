@@ -2,52 +2,54 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
+datasource anonympost {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model comment {
+model Comment {
   id         Int       @id @default(autoincrement())
-  sentence   String?   @db.Text
+  sentence   String?   @anonympost.Text
   post_id    Int?
   user_id    Int?
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  post       post?     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "comment_ibfk_1")
-  user       user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
+  created_at DateTime? @default(now()) @anonympost.Timestamp(0)
+  updated_at DateTime?
+  Post       Post?     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Comment_ibfk_1")
+  User       User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Comment_ibfk_2")
 
   @@index([post_id], map: "post_id")
   @@index([user_id], map: "user_id")
 }
 
-model post {
+model Post {
   id         Int        @id @default(autoincrement())
-  content    String?    @db.Text
+  content    String?    @anonympost.Text
   user_id    Int?
-  created_at DateTime?  @default(now()) @db.Timestamp(0)
-  comment    comment[]
-  user       user?      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "post_ibfk_1")
-  reaction   reaction[]
+  created_at DateTime?  @default(now()) @anonympost.Timestamp(0)
+  updated_at DateTime?
+  Comment    Comment[]
+  User       User?      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Post_ibfk_1")
+  Reaction   Reaction[]
 
   @@index([user_id], map: "user_id")
 }
 
-model reaction {
+model Reaction {
   id            Int   @id @default(autoincrement())
-  reaction_type Int?  @db.TinyInt
+  reaction_type Int?  @anonympost.TinyInt
   post_id       Int?
   user_id       Int?
-  post          post? @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reaction_ibfk_1")
-  user          user? @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reaction_ibfk_2")
+  Post          Post? @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Reaction_ibfk_1")
+  User          User? @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Reaction_ibfk_2")
 
   @@index([post_id], map: "post_id")
   @@index([user_id], map: "user_id")
 }
 
-model user {
+model User {
   id       Int        @id @default(autoincrement())
-  username String?    @unique(map: "username") @db.VarChar(15)
-  comment  comment[]
-  post     post[]
-  reaction reaction[]
+  username String?    @unique(map: "username") @anonympost.VarChar(15)
+  Comment  Comment[]
+  Post     Post[]
+  Reaction Reaction[]
 }

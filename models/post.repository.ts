@@ -1,13 +1,14 @@
-import {PrismaClient} from "@prisma/client";
+import {PrismaClient, Post} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 class PostRepository {
 
-    async allPosts() {
+    async allPosts(): Promise<Post[]> {
         try {
             return prisma.post.findMany({
-                include: {user: true},
+                include: {User: true},
+                orderBy: {created_at: 'desc'},
             });
         } catch (error) {
             console.error(error);
@@ -15,11 +16,11 @@ class PostRepository {
         }
     }
 
-    async findPost(id: number) {
+    async findPost(id: number): Promise<Post | null> {
         try {
             return prisma.post.findUnique({
                 where: {id: id},
-                include: {user: true},
+                include: {User: true},
             });
         } catch (error) {
             console.error(error);
@@ -27,14 +28,13 @@ class PostRepository {
         }
     }
 
-    async createPost(userId: number, content: string) {
+    async createPost(userId: number, content: string): Promise<Post> {
         try {
             return prisma.post.create({
                 data: {
                     content: content,
-                    user: {
-                        connect: {id: userId},
-                    },
+                    user_id: userId,
+                    created_at: new Date(),
                 },
             });
         } catch (error) {
@@ -43,11 +43,14 @@ class PostRepository {
         }
     }
 
-    async updatePost(id: number, content: string) {
+    async updatePost(id: number, content: string): Promise<Post> {
         try {
             return prisma.post.update({
                 where: {id: id},
-                data: {content: content},
+                data: {
+                    content: content,
+                    updated_at: new Date(),
+                },
             });
         } catch (error) {
             console.error(error);
@@ -55,7 +58,7 @@ class PostRepository {
         }
     }
 
-    async deletePost(id: number) {
+    async deletePost(id: number): Promise<Post> {
         try {
             return prisma.post.delete({where: {id: id}});
         } catch (error) {
@@ -67,7 +70,7 @@ class PostRepository {
     async getReactions(postId: number) {
         try {
             return prisma.reaction.findMany({
-                where: {post: {id: postId}},
+                where: {post_id: postId},
                 select: {reaction_type: true},
             });
         } catch (error) {
@@ -81,18 +84,16 @@ class PostRepository {
             return prisma.reaction.create({
                 data: {
                     reaction_type: reactionType,
-                    user: {
-                        connect: {id: userId},
-                    },
-                    post: {
-                        connect: {id: postId},
-                    },
+                    user_id: userId,
+                    post_id: postId,
                 },
             });
-        }  catch (error) {
+        } catch (error) {
             console.error(error);
             throw error;
         }
     }
 
 }
+
+export default new PostRepository();
