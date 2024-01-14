@@ -24,8 +24,9 @@ PUT http://localhost:3000/post/update/:id
 Content-Type: application/json
 
 {
-  "id": 2,
-  "content": "Updated post content."
+  "id": 6,
+  "content": "Updated post content.",
+  "updated_at": "2024-01-14 06:35:42"
 }
 
 ### Delete post by id

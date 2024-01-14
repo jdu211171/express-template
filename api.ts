@@ -29,9 +29,9 @@
 
 * /post/{id}/comment    Creates a new comment on a post.
 
-* /comment/{id}/update  Edits an existing comment.
+* /update/{id}          Edits an existing comment.
 
-* /comment/{id}/delete  Deletes a comment.
+* /delete/{id}          Deletes a comment.
 
 * <-- Search -->
 

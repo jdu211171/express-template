@@ -21,7 +21,7 @@ PUT http://localhost:3000/reaction/update/:id
 Content-Type: application/json
 
 {
-  "id": 3,
+  "id": 4,
   "reaction_type": 2
 }
 

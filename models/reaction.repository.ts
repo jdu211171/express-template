@@ -2,8 +2,8 @@ import { PrismaClient, Reaction } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export class ReactionRepository {
-    static async createReaction(reaction: Partial<Reaction>): Promise<Reaction> {
+class ReactionRepository {
+    async createReaction(reaction: Partial<Reaction>): Promise<Reaction> {
         try {
             return await prisma.reaction.create({
                 data: reaction,
@@ -14,7 +14,7 @@ export class ReactionRepository {
         }
     }
 
-    static async getReactionById(id: number): Promise<Reaction | null> {
+    async getReactionById(id: number): Promise<Reaction | null> {
         try {
             return await prisma.reaction.findUnique({
                 where: { id },
@@ -25,7 +25,7 @@ export class ReactionRepository {
         }
     }
 
-    static async updateReaction(id: number, reaction: Partial<Reaction>): Promise<Reaction> {
+    async updateReaction(id: number, reaction: Partial<Reaction>): Promise<Reaction> {
         try {
             return await prisma.reaction.update({
                 where: { id },
@@ -37,7 +37,7 @@ export class ReactionRepository {
         }
     }
 
-    static async deleteReaction(id: number): Promise<Reaction> {
+    async deleteReaction(id: number): Promise<Reaction> {
         try {
             return await prisma.reaction.delete({
                 where: { id },
@@ -47,4 +47,7 @@ export class ReactionRepository {
             throw error;
         }
     }
+
 }
+
+export default new ReactionRepository();

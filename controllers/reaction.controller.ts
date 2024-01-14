@@ -1,5 +1,5 @@
 import express from 'express';
-import {ReactionRepository} from "../models/reaction.repository";
+import ReactionRepository from "../models/reaction.repository";
 
 const router = express.Router();
 
