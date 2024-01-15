@@ -35,3 +35,15 @@ CREATE TABLE IF NOT EXISTS Reaction
     FOREIGN KEY (post_id) REFERENCES Post (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id)
 );
+
+CREATE TABLE IF NOT EXISTS Reply
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    sentence   TEXT,
+    comment_id INT,
+    user_id    INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (comment_id) REFERENCES Comment (id),
+    FOREIGN KEY (user_id) REFERENCES User (id)
+);
