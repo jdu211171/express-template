@@ -8,12 +8,12 @@ router.get('/all/:id', async (req, res) => {
         const comments = await CommentRepository.getAllComment(req.body.id);
         if (comments) {
             const postComments = comments.filter(comment => comment.post_id === Number(req.body.id));
-            res.status(200).json(postComments).end();
+            return res.status(200).json(postComments).end();
         } else {
-            res.status(404).json({ message: 'Reaction not found' }).end();
+            return res.status(404).json({ message: 'Reaction not found' }).end();
         }
     } catch (error: any) {
-        res.status(500).json({ message: error.message }).end();
+        return res.status(500).json({ message: error.message }).end();
     }
 });
 

@@ -8,7 +8,7 @@ class UsersRepository {
         try {
             return await prisma.user.create({
                 data,
-            })
+            });
         } catch (error) {
             console.error(error);
             throw error;

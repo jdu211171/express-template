@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS Post
     content    TEXT,
     user_id    INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User (id)
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE IF NOT EXISTS Comment
     post_id    INT,
     user_id    INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES Post (id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES User (id)
 );

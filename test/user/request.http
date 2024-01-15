@@ -1,35 +1,3 @@
 ### Create a new user
 POST http://localhost:3000/user/create
 Content-Type: application/json
-
-
-### Get user by id
-GET http://localhost:3000/user/find/:id
-Content-Type: application/json
-
-{
-  "id": 3
-}
-
-<> 2024-01-03T110000.200.json
-
-### Update user by id
-PUT http://localhost:3000/user/update/:id
-Content-Type: application/json
-
-{
-  "id": 3,
-  "username": "Shizuka"
-}
-
-<> 2024-01-03T101858.200.json
-
-### Delete user by id
-DELETE http://localhost:3000/user/delete/:id
-Content-Type: application/json
-
-{
-  "id": 4
-}
-
-<> 2024-01-03T110348.200.json
