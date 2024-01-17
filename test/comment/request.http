@@ -1,11 +1,11 @@
 ### Create a new comment
-POST http://localhost:3000/comment/create/:id
+POST http://localhost:3000/comment/create/
 Content-Type: application/json
 
 {
-  "sentence": "That's awesome news, isn't it?",
-  "post_id": 6,
-  "user_id": 2
+  "sentence": "This is a comment",
+  "post_id": 1,
+  "user_id": 11
 }
 
 ### Get all topic comment

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/all/:id', async (req, res) => {
     try {
-        const comments = await CommentRepository.getAllComment(req.body.id);
+        const comments = await CommentRepository.getAllComment(Number(req.params.id));
         if (comments) {
             const postComments = comments.filter(comment => comment.post_id === Number(req.body.id));
             return res.status(200).json(postComments).end();
@@ -17,7 +17,7 @@ router.get('/all/:id', async (req, res) => {
     }
 });
 
-router.post('/create/:id', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
         const comment = await CommentRepository.createComment({ ...req.body });
         res.status(200).json(comment).end();

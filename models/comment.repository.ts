@@ -3,7 +3,7 @@ import { PrismaClient, Comment, Prisma } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class CommentRepository {
-    async createComment(comment: Partial<Comment>): Promise<Comment> {
+    async createComment(comment: Prisma.CommentCreateInput): Promise<Comment> {
         try {
             return await prisma.comment.create({
                 data: comment,
