@@ -1,36 +1,29 @@
 import * as process from "process";
 import {NextFunction, Request, Response} from "express";
-import {verifyToken} from "../config/JWTConfig";
 import {userInfo} from "../controllers/user.controller";
+import jwt, {JwtPayload} from "jsonwebtoken";
 
-export function authorizeUser(
+export async function authorizeUser(
     req: Request,
     res: Response,
     next: NextFunction
 ) {
     try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader) {
+        const token = req.headers.authorization;
+        if (!token) {
             console.error('Token is missing');
             return res.status(401).json({message: 'Missing token'}).end();
         }
 
-        const token = authHeader!.replace('Authorization ', process.env.TOKEN_SECRET!);
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
+        const user = await userInfo(decoded.user_id);
 
-        const user_id = req.body.user_id;
+        if (user?.id !== decoded.user_id) {
+            console.error('Invalid token');
+            return res.status(403).json({message: 'Invalid token'}).end();
+        }
 
-        userInfo(user_id)
-            .then((user) => {
-                    if (verifyToken(token, user?.username, user?.id, user?.created_at)) {
-                        console.log(token, user?.username, user?.id, user?.created_at);
-                        return next();
-                    } else {
-                        return res.status(403).json({message: 'Invalid token'}).end();
-                    }
-                }
-            );
-
-
+        next();
     } catch (error) {
         console.error(error);
         return res.status(500).json({message: 'Internal server error'}).end();

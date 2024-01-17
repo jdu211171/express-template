@@ -10,10 +10,10 @@ Content-Type: application/json
 ### Get all posts
 GET http://localhost:3000/post/all
 Content-Type: application/json
-Authorization: Authorization eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFraWhvMzkiLCJ1c2VyX2lkIjoyLCJjcmVhdGVkX2F0IjoiMjAyNC0wMS0xNVQwNjoyNDoyNi4wMDBaIiwiaWF0IjoxNzA1Mjk5ODY2fQ.pUqZ8-OfsS1ads7U4JNVx83gYjN87sereczlS9uSBDE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU0NjcxOTMyNjJfMiIsInVzZXJfaWQiOjExLCJjcmVhdGVkX2F0IjoiMjAyNC0wMS0xN1QwNDo1MzoxNS4wMDBaIiwiaWF0IjoxNzA1NDY3MTk4fQ.RZySaQ8KbE03AK4etWBAV-cdsvidCTuZpJUuv8-T9xQ
 
 {
-  "user_id": 2
+  "user_id": 11
 }
 
 ### Get post by id
