@@ -12,12 +12,12 @@ model Comment {
   sentence   String?   @anonympost.Text
   post_id    Int?
   user_id    Int?
-  parent_id  Int?      @map("parent_id")
   created_at DateTime? @default(now()) @anonympost.Timestamp(0)
   updated_at DateTime?
+  parent_id  Int?      @map("parent_id")
   Post       Post?     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Comment_ibfk_1")
   User       User?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Comment_ibfk_2")
-  Parent     Comment?  @relation("CommentToComment", fields: [parent_id], references: [id], onDelete: SetNull)
+  Parent     Comment?  @relation("CommentToComment", fields: [parent_id], references: [id])
   Replies    Comment[] @relation("CommentToComment")
 
   @@index([post_id], map: "post_id")
@@ -51,9 +51,9 @@ model Reaction {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  username   String?    @unique(map: "username") @anonympost.VarChar(15)
-  Comment    Comment[]
-  Post       Post[]
-  Reaction   Reaction[]
+  id       Int        @id @default(autoincrement())
+  username String?    @unique(map: "username") @anonympost.VarChar(255)
+  Comment  Comment[]
+  Post     Post[]
+  Reaction Reaction[]
 }

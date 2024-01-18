@@ -19,6 +19,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU0Njcx
 ### Get post by id
 GET http://localhost:3000/post/find/:id
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU0NjcxOTMyNjJfMiIsInVzZXJfaWQiOjExLCJjcmVhdGVkX2F0IjoiMjAyNC0wMS0xN1QwNDo1MzoxNS4wMDBaIiwiaWF0IjoxNzA1NDY3MTk4fQ.RZySaQ8KbE03AK4etWBAV-cdsvidCTuZpJUuv8-T9xQ
 
 {
   "id": 2
@@ -27,6 +28,7 @@ Content-Type: application/json
 ### Update post by id
 PUT http://localhost:3000/post/update/:id
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU0NjcxOTMyNjJfMiIsInVzZXJfaWQiOjExLCJjcmVhdGVkX2F0IjoiMjAyNC0wMS0xN1QwNDo1MzoxNS4wMDBaIiwiaWF0IjoxNzA1NDY3MTk4fQ.RZySaQ8KbE03AK4etWBAV-cdsvidCTuZpJUuv8-T9xQ
 
 {
   "id": 6,
@@ -37,7 +39,7 @@ Content-Type: application/json
 ### Delete post by id
 DELETE http://localhost:3000/post/delete/:id
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU0NjcxOTMyNjJfMiIsInVzZXJfaWQiOjExLCJjcmVhdGVkX2F0IjoiMjAyNC0wMS0xN1QwNDo1MzoxNS4wMDBaIiwiaWF0IjoxNzA1NDY3MTk4fQ.RZySaQ8KbE03AK4etWBAV-cdsvidCTuZpJUuv8-T9xQ
 
 {
-  "id": 5
 }

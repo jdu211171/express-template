@@ -1,7 +1,7 @@
 import * as process from "process";
 import {NextFunction, Request, Response} from "express";
-import {userInfo} from "../controllers/user.controller";
 import jwt, {JwtPayload} from "jsonwebtoken";
+import UsersRepository from '../models/user.repository';
 
 export async function authorizeUser(
     req: Request,
@@ -16,14 +16,19 @@ export async function authorizeUser(
         }
 
         const decoded = jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
-        const user = await userInfo(decoded.user_id);
+        const user = await UsersRepository.getUserById(decoded.user_id);
 
         if (user?.id !== decoded.user_id) {
             console.error('Invalid token');
             return res.status(403).json({message: 'Invalid token'}).end();
         }
 
-        next();
+        req.body.user = {
+            id: decoded.user_id,
+            username: decoded.username,
+        };
+
+        return next();
     } catch (error) {
         console.error(error);
         return res.status(500).json({message: 'Internal server error'}).end();

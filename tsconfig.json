@@ -31,8 +31,16 @@
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-    // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
-    // "types": [],                                      /* Specify type package names to be included without being referenced in a source api.ts. */
+       "typeRoots": [                                    /* Specify multiple folders that act like './node_modules/@types'. */
+         "./node_modules/@types",
+       ],
+    // "include": [                                      /* Specify an array of glob patterns that match TypeScript files. */
+    //   "./src/**/*",
+    //   "./Types.d.ts"
+    // ],
+    //   "types": [                                      /* Specify type package names to be included without being referenced in a source api.ts. */
+    //     "Types.d.ts",
+    // ],
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of api.ts name suffixes to search when resolving a module. */
     // "resolveJsonModule": true,                        /* Enable importing .json files. */

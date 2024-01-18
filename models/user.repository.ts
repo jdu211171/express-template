@@ -15,6 +15,17 @@ class UsersRepository {
         }
     }
 
+    async getUserById(id: number): Promise<User | null> {
+        try {
+            return await prisma.user.findUnique({
+                where: { id },
+            });
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
 }
 
 export default new UsersRepository();
