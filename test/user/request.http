@@ -1,3 +1,8 @@
 ### Create a new user
 POST http://localhost:3000/user/create
 Content-Type: application/json
+
+### Update a username
+PUT http://localhost:3000/user/update
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU2MDQ5OTI5MDNfZGZkN2FmM2YtZDQ4Yi00Njc3LWEzY2UtZTY4ZTY4NDY0NjJmIiwidXNlcl9pZCI6MTksImlhdCI6MTcwNTYwNTAxM30.sthqeMUmdovpQW9UdDxu3eViRTFflfwGL0K4Z9-P9d0

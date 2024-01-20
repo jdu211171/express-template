@@ -4,9 +4,11 @@ const prisma = new PrismaClient();
 
 class PostRepository {
 
-    async allPosts(): Promise<Post[]> {
+    async allPosts(currentLoad: number, limit: number): Promise<Post[]> {
         try {
             return prisma.post.findMany({
+                skip: (currentLoad - 1) * limit,
+                take: limit,
                 include: {User: true},
                 orderBy: {created_at: 'desc'},
             });
