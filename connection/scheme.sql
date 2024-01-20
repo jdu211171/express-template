@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS Post
     id         INT AUTO_INCREMENT PRIMARY KEY,
     content    TEXT                    NOT NULL,
     user_id    INT                     NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP               NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL,
     constraint Post FOREIGN KEY (user_id) REFERENCES User (id)
 ) COLLATE = utf8mb4_unicode_ci;
 
-CREATE INDEX user_id ON Post (user_id);
+CREATE INDEX post_user_id ON Post (user_id);
 
 CREATE TABLE IF NOT EXISTS Comment
 (
@@ -23,15 +23,14 @@ CREATE TABLE IF NOT EXISTS Comment
     sentence   TEXT                    NOT NULL,
     post_id    INT                     NOT NULL,
     user_id    INT                     NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at DATETIME(3)             null,
-    CONSTRAINT Comment FOREIGN KEY (post_id) REFERENCES Post (id) ON DELETE CASCADE,
-    CONSTRAINT Comment FOREIGN KEY (user_id) REFERENCES User (id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NULL,
+    CONSTRAINT Comment_post_id FOREIGN KEY (post_id) REFERENCES Post (id) ON DELETE CASCADE,
+    CONSTRAINT Comment_user_id FOREIGN KEY (user_id) REFERENCES User (id)
 ) COLLATE = utf8mb4_unicode_ci;
 
-CREATE INDEX post_id ON Comment (post_id);
-
-CREATE INDEX user_id ON Comment (user_id);
+CREATE INDEX comment_post_id ON Comment (post_id);
+CREATE INDEX comment_user_id ON Comment (user_id);
 
 CREATE TABLE IF NOT EXISTS Reaction
 (
@@ -43,6 +42,5 @@ CREATE TABLE IF NOT EXISTS Reaction
     CONSTRAINT Reaction FOREIGN KEY (user_id) REFERENCES User (id)
 ) COLLATE = utf8mb4_unicode_ci;
 
-CREATE INDEX post_id ON Reaction (post_id);
-
-CREATE INDEX user_id ON Reaction (user_id);
+CREATE INDEX reaction_post_id ON Reaction (post_id);
+CREATE INDEX reaction_user_id ON Reaction (user_id);
