@@ -15,7 +15,7 @@ export async function authorizeUser(
             return res.status(401).json({message: 'Missing token'}).end();
         }
 
-        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as JwtPayload;
+        const decoded = jwt.verify(token, 'secret') as JwtPayload;
         const user = await UsersRepository.getUserById(decoded.user_id);
 
         if (user?.id !== decoded.user_id) {

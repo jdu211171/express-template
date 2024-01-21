@@ -21,8 +21,24 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const username = (0, Username_1.createUniqueUsername)(Date.now());
         const user = yield user_repository_1.default.createUser({ username });
-        const token = (0, Token_1.createToken)(user.username, user.id);
-        return res.status(200).json({ user, token }).end();
+        return res.status(200).json({
+            id: user.insertId,
+            username,
+            token: (0, Token_1.createToken)(username, user.insertId)
+        }).end();
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message }).end();
+    }
+}));
+router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, username } = req.body;
+        const user = yield user_repository_1.default.updateUser(id, { username });
+        return res.status(200).json({
+            id,
+            username,
+        }).end();
     }
     catch (error) {
         return res.status(500).json({ message: error.message }).end();

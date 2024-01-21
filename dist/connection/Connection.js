@@ -30,4 +30,4 @@ function checkConnection() {
         }
     });
 }
-checkConnection();
+checkConnection().then(() => console.log('Connection successful.'));

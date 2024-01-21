@@ -15,23 +15,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const promise_1 = __importDefault(require("mysql2/promise"));
 class Database {
     constructor() {
-        this.connect();
+        this.connect().then(() => console.log('Connection successful.'));
     }
     connect() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.database = yield promise_1.default.createConnection({
-                host: process.env.DB_HOST,
-                user: process.env.DB_USER,
-                password: process.env.DB_PASS,
-                port: Number(process.env.DB_PORT),
-                database: 'anonympost',
-            });
+            try {
+                this.database = promise_1.default.createPool({
+                    host: process.env.DB_HOST,
+                    user: process.env.DB_USER,
+                    password: process.env.DB_PASS,
+                    port: Number(process.env.DB_PORT),
+                    database: 'anonympost',
+                    waitForConnections: true,
+                    connectionLimit: 10,
+                    queueLimit: 0,
+                });
+                console.log('Successfully created a connection pool.');
+            }
+            catch (error) {
+                console.error('Failed to connect to the database.', error);
+            }
         });
     }
-    query(query, values) {
+    disconnect() {
         return __awaiter(this, void 0, void 0, function* () {
-            const [rows] = yield this.database.execute(query, values);
-            return rows;
+            if (this.database) {
+                yield this.database.end();
+                console.log('Successfully disconnected from the database.');
+            }
+        });
+    }
+    query(sql, values) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const [result] = yield this.database.execute(sql, values);
+                return result;
+            }
+            catch (error) {
+                console.error('Failed to execute query.', error);
+                throw error;
+            }
         });
     }
 }

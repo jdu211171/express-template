@@ -8,16 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const Database_1 = __importDefault(require("../connection/Database"));
 class UsersRepository {
     createUser(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.user.create({
-                    data,
-                });
+                return yield Database_1.default.query('INSERT INTO User (username) VALUES (?)', [data.username]);
             }
             catch (error) {
                 console.error(error);
@@ -28,9 +28,18 @@ class UsersRepository {
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.user.findUnique({
-                    where: { id },
-                });
+                return yield Database_1.default.query('SELECT * FROM User WHERE id = ?', [id]);
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
+    updateUser(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield Database_1.default.query('UPDATE User SET username = ? WHERE id = ?', [data.username, id]);
             }
             catch (error) {
                 console.error(error);

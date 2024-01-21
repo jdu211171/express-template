@@ -8,14 +8,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const Database_1 = __importDefault(require("../connection/Database"));
 class PostRepository {
     allPosts(currentLoad, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.post.findMany({
+                return Database_1.default.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT $1 OFFSET $2', [limit, (currentLoad - 1) * limit]);
+                return findMany({
                     skip: (currentLoad - 1) * limit,
                     take: limit,
                     include: { User: true },

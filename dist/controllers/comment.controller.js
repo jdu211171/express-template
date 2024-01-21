@@ -17,13 +17,13 @@ const comment_repository_1 = __importDefault(require("../models/comment.reposito
 const router = express_1.default.Router();
 router.get('/all/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const comments = yield comment_repository_1.default.getAllComment(Number(req.params.id));
+        const comments = yield comment_repository_1.default.getAllComments(Number(req.params.id));
         if (comments) {
-            const postComments = comments.filter(comment => comment.post_id === Number(req.body.id));
+            const postComments = comments.filter((comment) => comment.post_id === Number(req.body.id));
             return res.status(200).json(postComments).end();
         }
         else {
-            return res.status(404).json({ message: 'Reaction not found' }).end();
+            return res.status(404).json({ message: 'Comment not found' }).end();
         }
     }
     catch (error) {

@@ -1,12 +1,11 @@
-import {PrismaClient, Post} from "@prisma/client";
-
-const prisma = new PrismaClient();
+import db from '../connection/Database';
 
 class PostRepository {
 
-    async allPosts(currentLoad: number, limit: number): Promise<Post[]> {
+    async allPosts(currentLoad: number, limit: number): Promise<any> {
         try {
-            return prisma.post.findMany({
+            return db.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT $1 OFFSET $2', [limit, (currentLoad - 1) * limit]);
+            return findMany({
                 skip: (currentLoad - 1) * limit,
                 take: limit,
                 include: {User: true},

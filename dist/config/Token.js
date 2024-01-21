@@ -13,6 +13,6 @@ function createToken(username, user_id) {
     const options = {
         expiresIn: '1h',
     };
-    return jsonwebtoken_1.default.sign(payload, process.env.SECRET_KEY);
+    return jsonwebtoken_1.default.sign(payload, 'secret');
 }
 exports.createToken = createToken;

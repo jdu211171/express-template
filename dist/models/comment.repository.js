@@ -8,76 +8,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const Database_1 = __importDefault(require("../connection/Database"));
 class CommentRepository {
     createComment(comment) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma.comment.create({
-                    data: comment,
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
-        });
-    }
-    getAllComment(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma.comment.findMany({
-                    where: {
-                        post_id: id
-                    }
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
+            const { content, postId } = comment;
+            return yield Database_1.default.query('INSERT INTO Comment (sentence, post_id) VALUES (?, ?)', [content, postId]);
         });
     }
     getCommentById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma.comment.findUnique({
-                    where: { id },
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
+            return yield Database_1.default.query('SELECT * FROM Comment WHERE id = ?', [id]);
+        });
+    }
+    getAllComments(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Database_1.default.query('SELECT * FROM Comment WHERE post_id = ?', [id]);
         });
     }
     updateComment(id, comment) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma.comment.update({
-                    where: { id },
-                    data: comment,
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
+            const { content } = comment;
+            return yield Database_1.default.query('UPDATE Comment SET sentence = ? WHERE id = ?', [content, id]);
         });
     }
     deleteComment(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return yield prisma.comment.delete({
-                    where: { id },
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
+            return yield Database_1.default.query('DELETE FROM Comment WHERE id = ?', [id]);
         });
     }
 }

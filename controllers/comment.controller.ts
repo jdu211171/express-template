@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get('/all/:id', async (req, res) => {
     try {
-        const comments = await CommentRepository.getAllComment(Number(req.params.id));
+        const comments = await CommentRepository.getAllComments(Number(req.params.id));
         if (comments) {
-            const postComments = comments.filter(comment => comment.post_id === Number(req.body.id));
+            const postComments = comments.filter((comment: { post_id: number; }) => comment.post_id === Number(req.body.id));
             return res.status(200).json(postComments).end();
         } else {
-            return res.status(404).json({ message: 'Reaction not found' }).end();
+            return res.status(404).json({ message: 'Comment not found' }).end();
         }
     } catch (error: any) {
         return res.status(500).json({ message: error.message }).end();
