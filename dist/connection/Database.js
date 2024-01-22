@@ -21,14 +21,11 @@ class Database {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.database = promise_1.default.createPool({
+                    database: process.env.DB_NAME,
                     host: process.env.DB_HOST,
                     user: process.env.DB_USER,
                     password: process.env.DB_PASS,
                     port: Number(process.env.DB_PORT),
-                    database: process.env.DB_NAME,
-                    waitForConnections: true,
-                    connectionLimit: 10,
-                    queueLimit: 0,
                     namedPlaceholders: true
                 });
                 console.log('Successfully created a connection pool.');
@@ -53,8 +50,8 @@ class Database {
                 return result;
             }
             catch (error) {
-                // console.error('Failed to execute query.', error);
-                console.log(this.database.format(sql, values));
+                console.error('Failed to execute query.', error);
+                // console.log(this.database.format(sql, values))
                 throw error;
             }
         });

@@ -1,34 +1,27 @@
 ### Create a new comment
-POST http://localhost:3000/comment/create/
+POST http://localhost:3000/comment/create/3
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 {
-  "sentence": "This is a comment",
-  "post_id": 1,
-  "user_id": 11
+  "sentence": "This is a third comment"
 }
 
 ### Get all topic comment
-GET http://localhost:3000/comment/all/:id
+GET http://localhost:3000/comment/all/3
 Content-Type: application/json
-
-{
-  "id": 6
-}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 ### Update comment by id
-PUT http://localhost:3000/comment/update/:id
+PUT http://localhost:3000/comment/update/3
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 {
-  "id": 6,
-  "sentence": "No, sorry, for troubling",
-  "updated_at": "2024-01-14T14:33:13.000Z"
+  "sentence": "No, sorry, for troubling"
 }
 
 ### Delete comment by id
-DELETE http://localhost:3000/comment/delete/:id
+DELETE http://localhost:3000/comment/delete/3
 Content-Type: application/json
-
-{
-}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4

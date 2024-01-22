@@ -17,15 +17,16 @@ const reaction_repository_1 = __importDefault(require("../models/reaction.reposi
 const router = express_1.default.Router();
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json(yield reaction_repository_1.default.createReaction(req.body, req.body.user.id)).end();
+        const reaction = yield reaction_repository_1.default.createReaction(req.body.user.id, req.body);
+        res.status(200).json({ message: 'Reaction created successfully!' }).end();
     }
     catch (error) {
         res.status(500).json({ message: error.message }).end();
     }
 }));
-router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/find', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const reaction = yield reaction_repository_1.default.getReactionById(Number(req.body.id));
+        const reaction = yield reaction_repository_1.default.getReactionById(req.body.user.id);
         if (reaction) {
             res.status(200).json(reaction).end();
         }
@@ -37,9 +38,10 @@ router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function
         res.status(500).json({ message: error.message }).end();
     }
 }));
-router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json(yield reaction_repository_1.default.updateReaction(Number(req.body.id), req.body)).end();
+        const reaction = yield reaction_repository_1.default.updateReaction(req.body.user.id, req.body);
+        res.status(200).json({ message: 'Reaction updated successfully!' }).end();
     }
     catch (error) {
         res.status(500).json({ message: error.message }).end();
@@ -47,7 +49,8 @@ router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
 }));
 router.delete('/delete/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json(yield reaction_repository_1.default.deleteReaction(Number(req.body.id))).end();
+        const reaction = yield reaction_repository_1.default.deleteReaction(Number(req.params.id));
+        res.status(200).json({ message: 'Reaction deleted successfully!' }).end();
     }
     catch (error) {
         res.status(500).json({ message: error.message }).end();

@@ -14,10 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class ReactionRepository {
-    createReaction(reaction, user_id) {
+    createReaction(user_id, reaction) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUES (?, ?, ?)', [reaction.reaction_type, user_id, reaction.post_id]);
+                return yield Database_1.default.query('INSERT INTO Reaction (reaction_type, post_id, user_id) VALUE (:reaction_type, :post_id, :user_id)', {
+                    reaction_type: reaction.reaction_type,
+                    post_id: reaction.post_id,
+                    user_id: user_id
+                });
             }
             catch (error) {
                 console.error(error);
@@ -25,10 +29,12 @@ class ReactionRepository {
             }
         });
     }
-    getReactionById(id) {
+    getReactionById(user_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('SELECT * FROM Reaction WHERE id = ?', [id]);
+                return yield Database_1.default.query('SELECT post_id, reaction_type FROM Reaction WHERE user_id = :user_id', {
+                    user_id: user_id
+                });
             }
             catch (error) {
                 console.error(error);
@@ -36,10 +42,14 @@ class ReactionRepository {
             }
         });
     }
-    updateReaction(id, reaction) {
+    updateReaction(user_id, reaction) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('UPDATE Reaction SET reaction_type = ?, post_id = ? WHERE id = ?', [reaction.reaction_type, reaction.post_id, id]);
+                return yield Database_1.default.query('UPDATE Reaction SET reaction_type = :reaction_type WHERE user_id = :user_id AND post_id = :post_id', {
+                    user_id: user_id,
+                    reaction_type: reaction.reaction_type,
+                    post_id: reaction.post_id
+                });
             }
             catch (error) {
                 console.error(error);
@@ -47,10 +57,12 @@ class ReactionRepository {
             }
         });
     }
-    deleteReaction(id) {
+    deleteReaction(post_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('DELETE FROM Reaction WHERE id = ?', [id]);
+                return yield Database_1.default.query('DELETE FROM Reaction WHERE post_id = :post_id', {
+                    post_id: post_id
+                });
             }
             catch (error) {
                 console.error(error);

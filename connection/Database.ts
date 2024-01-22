@@ -10,21 +10,17 @@ class Database {
     async connect() {
         try {
             this.database = mysql.createPool({
+                database: process.env.DB_NAME,
                 host: process.env.DB_HOST,
                 user: process.env.DB_USER,
                 password: process.env.DB_PASS,
                 port: Number(process.env.DB_PORT),
-                database: process.env.DB_NAME,
-                waitForConnections: true,
-                connectionLimit: 10,
-                queueLimit: 0,
                 namedPlaceholders: true
             });
             console.log('Successfully created a connection pool.');
         } catch (error) {
             console.error('Failed to connect to the database.', error);
         }
-
     }
 
     async disconnect() {
@@ -39,8 +35,8 @@ class Database {
             const [result] = await this.database.execute(sql, values);
             return result;
         } catch (error) {
-            // console.error('Failed to execute query.', error);
-            console.log(this.database.format(sql, values))
+            console.error('Failed to execute query.', error);
+            // console.log(this.database.format(sql, values))
             throw error;
         }
     }

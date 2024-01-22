@@ -5,15 +5,16 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {
-        res.status(200).json(await ReactionRepository.createReaction(req.body, req.body.user.id)).end();
+        const reaction = await ReactionRepository.createReaction(req.body.user.id, req.body);
+        res.status(200).json({message: 'Reaction created successfully!'}).end();
     } catch (error: any) {
         res.status(500).json({ message: error.message }).end();
     }
 });
 
-router.get('/find/:id', async (req, res) => {
+router.get('/find', async (req, res) => {
     try {
-        const reaction = await ReactionRepository.getReactionById(Number(req.body.id));
+        const reaction = await ReactionRepository.getReactionById(req.body.user.id);
         if (reaction) {
             res.status(200).json(reaction).end();
         } else {
@@ -24,9 +25,10 @@ router.get('/find/:id', async (req, res) => {
     }
 });
 
-router.put('/update/:id', async (req, res) => {
+router.put('/update', async (req, res) => {
     try {
-        res.status(200).json(await ReactionRepository.updateReaction(Number(req.body.id), req.body)).end();
+        const reaction = await ReactionRepository.updateReaction(req.body.user.id, req.body);
+        res.status(200).json({message: 'Reaction updated successfully!'}).end();
     } catch (error: any) {
         res.status(500).json({ message: error.message }).end();
     }
@@ -34,7 +36,8 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     try {
-        res.status(200).json(await ReactionRepository.deleteReaction(Number(req.body.id))).end();
+        const reaction = await ReactionRepository.deleteReaction(Number(req.params.id));
+        res.status(200).json({message: 'Reaction deleted successfully!'}).end();
     } catch (error: any) {
         res.status(500).json({ message: error.message }).end();
     }

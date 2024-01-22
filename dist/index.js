@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = __importDefault(require("./controllers/user.controller"));
 const post_controller_1 = __importDefault(require("./controllers/post.controller"));
 const reaction_controller_1 = __importDefault(require("./controllers/reaction.controller"));
-// import commentController from "./controllers/comment.controller";
+const comment_controller_1 = __importDefault(require("./controllers/comment.controller"));
 const authorization_1 = require("./middleware/authorization");
 // import serverless from 'serverless-http';
 const port = 3000;
@@ -18,7 +18,7 @@ app.use('/user', user_controller_1.default);
 app.use(authorization_1.authorizeUser);
 app.use('/post', post_controller_1.default);
 app.use('/reaction', reaction_controller_1.default);
-// app.use('/comment', commentController);
+app.use('/comment', comment_controller_1.default);
 // app.get('/', (req, res) => {
 //     res.send('Hello World!');
 // });
