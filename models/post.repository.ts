@@ -4,32 +4,23 @@ class PostRepository {
 
     async allPosts(currentLoad: number, limit: number): Promise<any> {
         try {
-            return db.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT $1 OFFSET $2', [limit, (currentLoad - 1) * limit]);
-            return findMany({
-                skip: (currentLoad - 1) * limit,
-                take: limit,
-                include: {User: true},
-                orderBy: {created_at: 'desc'},
-            });
+            return db.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT ? OFFSET ?', [limit, (currentLoad - 1) * limit]);
         } catch (error) {
             console.error(error);
             throw error;
         }
     }
 
-    async findPost(id: number): Promise<Post | null> {
+    async findPost(id: number): Promise<any> {
         try {
-            return prisma.post.findUnique({
-                where: {id: id},
-                include: {User: true},
-            });
+            return db.query('SELECT * FROM Post INNER JOIN User ON Post.user_id = User.id.userId = User.id WHERE Post.id = ?', [id]);
         } catch (error) {
             console.error(error);
             throw error;
         }
     }
 
-    async createPost(userId: number, content: string): Promise<Post> {
+    async createPost(userId: number, content: string): Promise<any> {
         try {
             return prisma.post.create({
                 data: {
@@ -44,7 +35,7 @@ class PostRepository {
         }
     }
 
-    async updatePost(id: number, content: string): Promise<Post> {
+    async updatePost(id: number, content: string): Promise<any> {
         try {
             return prisma.post.update({
                 where: {id: id},
@@ -59,7 +50,7 @@ class PostRepository {
         }
     }
 
-    async deletePost(id: number): Promise<Post> {
+    async deletePost(id: number): Promise<any> {
         try {
             return prisma.post.delete({where: {id: id}});
         } catch (error) {

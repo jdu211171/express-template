@@ -3,12 +3,8 @@ import db from '../connection/Database';
 class CommentRepository {
 
     async createComment(comment: any): Promise<any> {
-        const { content, postId } = comment;
-        return await db.query('INSERT INTO Comment (sentence, post_id) VALUES (?, ?)', [content, postId]);
-    }
-
-    async getCommentById(id: number): Promise<any> {
-        return await db.query('SELECT * FROM Comment WHERE id = ?', [id]);
+        const {content, postId, user_id} = comment;
+        return await db.query('INSERT INTO Comment (sentence, post_id, user_id) VALUES (?, ?)', [content, postId, user_id]);
     }
 
     async getAllComments(id: number): Promise<any> {
@@ -16,7 +12,7 @@ class CommentRepository {
     }
 
     async updateComment(id: number, comment: any): Promise<any> {
-        const { content } = comment;
+        const {content} = comment;
         return await db.query('UPDATE Comment SET sentence = ? WHERE id = ?', [content, id]);
     }
 
