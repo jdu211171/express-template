@@ -28,11 +28,19 @@ router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 }));
 router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const post = yield post_repository_1.default.findPost(Number(req.params.id));
+        const [post] = yield post_repository_1.default.findPost(Number(req.params.id));
         if (!post) {
             return res.status(404).json({ message: 'Post not found' }).end();
         }
-        return res.status(200).json(post).end();
+        return res.status(200).json({
+            id: post.id,
+            content: post.content,
+            user: {
+                id: post.user_id,
+                name: post.username,
+            },
+            created_at: post.created_at,
+        }).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
@@ -50,7 +58,7 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const updatedPost = yield post_repository_1.default.updatePost(Number(req.params.id), req.body.content);
-        return res.status(200).json(updatedPost).end();
+        return res.status(200).json({ message: 'Updated successfully!' }).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
@@ -59,7 +67,7 @@ router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
 router.delete('/delete/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const deletedPost = yield post_repository_1.default.deletePost(Number(req.params.id));
-        return res.status(200).json(deletedPost).end();
+        return res.status(200).json({ message: 'Deleted successfully!' }).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();

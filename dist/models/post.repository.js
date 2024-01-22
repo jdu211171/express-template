@@ -14,15 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class PostRepository {
-    allPosts(currentLoad, limit) {
+    allPosts(lastId, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT $1 OFFSET $2', [limit, (currentLoad - 1) * limit]);
-                return findMany({
-                    skip: (currentLoad - 1) * limit,
-                    take: limit,
-                    include: { User: true },
-                    orderBy: { created_at: 'desc' },
+                return Database_1.default.query('SELECT u.*, p.* FROM Post as p JOIN User as u ON p.user_id = u.id LIMIT :limit OFFSET :offset', {
+                    limit: limit.toString(),
+                    offset: ((lastId - 1) * limit).toString()
                 });
             }
             catch (error) {
@@ -34,9 +31,8 @@ class PostRepository {
     findPost(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.post.findUnique({
-                    where: { id: id },
-                    include: { User: true },
+                return Database_1.default.query('SELECT * FROM Post JOIN User ON Post.user_id = User.id WHERE Post.id = :id', {
+                    id: id
                 });
             }
             catch (error) {
@@ -48,12 +44,10 @@ class PostRepository {
     createPost(userId, content) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.post.create({
-                    data: {
-                        content: content,
-                        user_id: userId,
-                        created_at: new Date(),
-                    },
+                return Database_1.default.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)', {
+                    content: content,
+                    userId: userId,
+                    createdAt: new Date()
                 });
             }
             catch (error) {
@@ -65,12 +59,10 @@ class PostRepository {
     updatePost(id, content) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.post.update({
-                    where: { id: id },
-                    data: {
-                        content: content,
-                        updated_at: new Date(),
-                    },
+                return Database_1.default.query('UPDATE Post SET content = :content, updated_at = :updated_at WHERE id = :id', {
+                    id: id,
+                    content: content,
+                    updated_at: new Date()
                 });
             }
             catch (error) {
@@ -82,7 +74,9 @@ class PostRepository {
     deletePost(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.post.delete({ where: { id: id } });
+                return Database_1.default.query('DELETE FROM Post WHERE id = :id', {
+                    id: id
+                });
             }
             catch (error) {
                 console.error(error);
@@ -93,9 +87,8 @@ class PostRepository {
     getReactions(postId) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.reaction.findMany({
-                    where: { post_id: postId },
-                    select: { reaction_type: true },
+                return Database_1.default.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
+                    post_id: postId
                 });
             }
             catch (error) {
@@ -107,12 +100,10 @@ class PostRepository {
     addReaction(userId, postId, reactionType) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return prisma.reaction.create({
-                    data: {
-                        reaction_type: reactionType,
-                        user_id: userId,
-                        post_id: postId,
-                    },
+                return Database_1.default.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUE (:reaction_type, :user_id, :post_id)', {
+                    reaction_type: reactionType,
+                    user_id: userId,
+                    post_id: postId
                 });
             }
             catch (error) {

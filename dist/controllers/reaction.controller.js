@@ -17,7 +17,7 @@ const reaction_repository_1 = __importDefault(require("../models/reaction.reposi
 const router = express_1.default.Router();
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json(yield reaction_repository_1.default.createReaction(req.body)).end();
+        res.status(200).json(yield reaction_repository_1.default.createReaction(req.body, req.body.user.id)).end();
     }
     catch (error) {
         res.status(500).json({ message: error.message }).end();

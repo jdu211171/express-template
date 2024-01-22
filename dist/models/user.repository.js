@@ -17,7 +17,9 @@ class UsersRepository {
     createUser(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('INSERT INTO User (username) VALUES (?)', [data.username]);
+                return yield Database_1.default.query('INSERT INTO User (username) VALUE (:username)', {
+                    username: data.username
+                });
             }
             catch (error) {
                 console.error(error);
@@ -28,7 +30,9 @@ class UsersRepository {
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('SELECT * FROM User WHERE id = ?', [id]);
+                return yield Database_1.default.query('SELECT * FROM User WHERE id = :id', {
+                    id: id
+                });
             }
             catch (error) {
                 console.error(error);
@@ -39,7 +43,10 @@ class UsersRepository {
     updateUser(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('UPDATE User SET username = ? WHERE id = ?', [data.username, id]);
+                return yield Database_1.default.query('UPDATE User SET username = :username WHERE id = :id', {
+                    id: id,
+                    username: data.username
+                });
             }
             catch (error) {
                 console.error(error);

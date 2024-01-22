@@ -23,7 +23,7 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
         const user = yield user_repository_1.default.createUser({ username });
         return res.status(200).json({
             id: user.insertId,
-            username,
+            username: username,
             token: (0, Token_1.createToken)(username, user.insertId)
         }).end();
     }
@@ -36,8 +36,8 @@ router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const { id, username } = req.body;
         const user = yield user_repository_1.default.updateUser(id, { username });
         return res.status(200).json({
-            id,
-            username,
+            id: id,
+            username: username,
         }).end();
     }
     catch (error) {

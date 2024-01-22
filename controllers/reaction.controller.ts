@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {
-        res.status(200).json(await ReactionRepository.createReaction(req.body)).end();
+        res.status(200).json(await ReactionRepository.createReaction(req.body, req.body.user.id)).end();
     } catch (error: any) {
         res.status(500).json({ message: error.message }).end();
     }

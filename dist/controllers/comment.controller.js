@@ -19,8 +19,7 @@ router.get('/all/:id', (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const comments = yield comment_repository_1.default.getAllComments(Number(req.params.id));
         if (comments) {
-            const postComments = comments.filter((comment) => comment.post_id === Number(req.body.id));
-            return res.status(200).json(postComments).end();
+            return res.status(200).json(comments).end();
         }
         else {
             return res.status(404).json({ message: 'Comment not found' }).end();
@@ -33,7 +32,7 @@ router.get('/all/:id', (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const comment = yield comment_repository_1.default.createComment(Object.assign({}, req.body));
-        res.status(200).json(comment).end();
+        res.status(200).json({ message: 'Comment created successfully!' }).end();
     }
     catch (error) {
         res.status(500).json({ message: error.message }).end();

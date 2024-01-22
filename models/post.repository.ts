@@ -2,9 +2,14 @@ import db from '../connection/Database';
 
 class PostRepository {
 
-    async allPosts(currentLoad: number, limit: number): Promise<any> {
+    async allPosts(lastId: number, limit: number): Promise<any> {
         try {
-            return db.query('SELECT * FROM Post ORDER BY created_at DESC LIMIT ? OFFSET ?', [limit, (currentLoad - 1) * limit]);
+            return db.query(
+                'SELECT u.*, p.* FROM Post as p JOIN User as u ON p.user_id = u.id LIMIT :limit OFFSET :offset', {
+                    limit: limit.toString(),
+                    offset: ((lastId - 1) * limit).toString()
+                }
+            );
         } catch (error) {
             console.error(error);
             throw error;
@@ -13,7 +18,9 @@ class PostRepository {
 
     async findPost(id: number): Promise<any> {
         try {
-            return db.query('SELECT * FROM Post INNER JOIN User ON Post.user_id = User.id.userId = User.id WHERE Post.id = ?', [id]);
+            return db.query('SELECT * FROM Post JOIN User ON Post.user_id = User.id WHERE Post.id = :id', {
+                id: id
+            });
         } catch (error) {
             console.error(error);
             throw error;
@@ -22,12 +29,10 @@ class PostRepository {
 
     async createPost(userId: number, content: string): Promise<any> {
         try {
-            return prisma.post.create({
-                data: {
-                    content: content,
-                    user_id: userId,
-                    created_at: new Date(),
-                },
+            return db.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)',{
+                content: content,
+                userId: userId,
+                createdAt: new Date()
             });
         } catch (error) {
             console.error(error);
@@ -37,12 +42,10 @@ class PostRepository {
 
     async updatePost(id: number, content: string): Promise<any> {
         try {
-            return prisma.post.update({
-                where: {id: id},
-                data: {
-                    content: content,
-                    updated_at: new Date(),
-                },
+            return db.query('UPDATE Post SET content = :content, updated_at = :updated_at WHERE id = :id', {
+                id: id,
+                content: content,
+                updated_at: new Date()
             });
         } catch (error) {
             console.error(error);
@@ -52,7 +55,9 @@ class PostRepository {
 
     async deletePost(id: number): Promise<any> {
         try {
-            return prisma.post.delete({where: {id: id}});
+            return db.query('DELETE FROM Post WHERE id = :id', {
+                id: id
+            });
         } catch (error) {
             console.error(error);
             throw error;
@@ -61,9 +66,8 @@ class PostRepository {
 
     async getReactions(postId: number) {
         try {
-            return prisma.reaction.findMany({
-                where: {post_id: postId},
-                select: {reaction_type: true},
+            return db.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
+                post_id: postId
             });
         } catch (error) {
             console.error(error);
@@ -73,12 +77,10 @@ class PostRepository {
 
     async addReaction(userId: number, postId: number, reactionType: number) {
         try {
-            return prisma.reaction.create({
-                data: {
-                    reaction_type: reactionType,
-                    user_id: userId,
-                    post_id: postId,
-                },
+            return db.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUE (:reaction_type, :user_id, :post_id)', {
+                reaction_type: reactionType,
+                user_id: userId,
+                post_id: postId
             });
         } catch (error) {
             console.error(error);

@@ -8,16 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+const Database_1 = __importDefault(require("../connection/Database"));
 class ReactionRepository {
-    createReaction(reaction) {
+    createReaction(reaction, user_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.reaction.create({
-                    data: reaction,
-                });
+                return yield Database_1.default.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUES (?, ?, ?)', [reaction.reaction_type, user_id, reaction.post_id]);
             }
             catch (error) {
                 console.error(error);
@@ -28,9 +28,7 @@ class ReactionRepository {
     getReactionById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.reaction.findUnique({
-                    where: { id },
-                });
+                return yield Database_1.default.query('SELECT * FROM Reaction WHERE id = ?', [id]);
             }
             catch (error) {
                 console.error(error);
@@ -41,10 +39,7 @@ class ReactionRepository {
     updateReaction(id, reaction) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.reaction.update({
-                    where: { id },
-                    data: reaction,
-                });
+                return yield Database_1.default.query('UPDATE Reaction SET reaction_type = ?, post_id = ? WHERE id = ?', [reaction.reaction_type, reaction.post_id, id]);
             }
             catch (error) {
                 console.error(error);
@@ -55,9 +50,7 @@ class ReactionRepository {
     deleteReaction(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield prisma.reaction.delete({
-                    where: { id },
-                });
+                return yield Database_1.default.query('DELETE FROM Reaction WHERE id = ?', [id]);
             }
             catch (error) {
                 console.error(error);

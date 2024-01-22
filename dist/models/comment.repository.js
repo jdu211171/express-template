@@ -16,13 +16,8 @@ const Database_1 = __importDefault(require("../connection/Database"));
 class CommentRepository {
     createComment(comment) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { content, postId } = comment;
-            return yield Database_1.default.query('INSERT INTO Comment (sentence, post_id) VALUES (?, ?)', [content, postId]);
-        });
-    }
-    getCommentById(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield Database_1.default.query('SELECT * FROM Comment WHERE id = ?', [id]);
+            const { content, postId, user_id } = comment;
+            return yield Database_1.default.query('INSERT INTO Comment (sentence, post_id, user_id) VALUES (?, ?)', [content, postId, user_id]);
         });
     }
     getAllComments(id) {

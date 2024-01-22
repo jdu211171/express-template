@@ -11,7 +11,7 @@ router.post('/create', async (req, res) => {
         const user = await UsersRepository.createUser({username});
         return res.status(200).json({
             id: user.insertId,
-            username,
+            username: username,
             token: createToken(username, user.insertId)
         }).end();
     } catch (error: any) {
@@ -24,8 +24,8 @@ router.put('/update', async (req, res) => {
         const {id, username} = req.body;
         const user = await UsersRepository.updateUser(id, {username});
         return res.status(200).json({
-            id,
-            username,
+            id: id,
+            username: username,
         }).end();
     } catch (error: any) {
         return res.status(500).json({message: error.message}).end();
