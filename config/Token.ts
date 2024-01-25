@@ -8,5 +8,5 @@ export function createToken(username: string | null, user_id: number) {
     const options = {
         expiresIn: '365d',
     };
-    return jwt.sign(payload, process.env.SECRET_KEY!, options);
+    return jwt.sign(payload, 'secret', options);
 }

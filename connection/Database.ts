@@ -10,11 +10,11 @@ class Database {
     async connect() {
         try {
             this.database = mysql.createPool({
-                database: process.env.DB_NAME,
-                host: process.env.DB_HOST,
-                user: process.env.DB_USER,
-                password: process.env.DB_PASS,
-                port: Number(process.env.DB_PORT),
+                database: 'anonympost',
+                host: 'anonympost.cbvagi0jkst8.ap-northeast-1.rds.amazonaws.com',
+                user: 'admin',
+                password: 'pCfXMtW2K6ssShilCYt2',
+                port: 3306,
                 namedPlaceholders: true
             });
             console.log('Successfully created a connection pool.');

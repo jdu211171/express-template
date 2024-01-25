@@ -25,3 +25,32 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1
 DELETE http://localhost:3000/comment/delete/3
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+### Create a new AWS comment
+POST https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/create/9
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
+
+{
+  "sentence": "This is a comment for 1st post"
+}
+
+### Get all topic AWS comment
+GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/all/9
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
+
+### Update AWS comment by id
+PUT https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/update/9
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
+
+{
+  "sentence": "No, sorry, for troubling"
+}
+
+### Delete AWS comment by id
+DELETE https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/delete/6
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
+
