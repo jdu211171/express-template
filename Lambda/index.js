@@ -15,9 +15,8 @@ const serverless_http_1 = __importDefault(require("serverless-http"));
 const port = 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-
 // app.get('/', (req, res) => {
-//     res.send('Hello World!');
+//   res.send('Hello World!');
 // });
 app.use('/user', user_controller_1.default);
 app.use(authorization_1.authorizeUser);
@@ -27,5 +26,4 @@ app.use('/comment', comment_controller_1.default);
 // app.listen(port, () => {
 //   console.log(`now listening on port ${port}`);
 // });
-
 exports.handler = (0, serverless_http_1.default)(app);
