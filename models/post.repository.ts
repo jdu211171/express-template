@@ -5,7 +5,7 @@ class PostRepository {
     async allPosts(lastId: number, limit: number): Promise<any> {
         try {
             return db.query(
-                'SELECT u.*, p.*, reaction_type, COUNT(reaction_type) as count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction ON p.id = Reaction.post_id GROUP BY reaction_type LIMIT :limit OFFSET :offset', {
+                'SELECT u.*, p.*, COUNT(c.id) as comment_count, r.reaction_type, COUNT(r.reaction_type) as reaction_count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction as r ON p.id = r.post_id LEFT JOIN Comment as c ON p.id = c.post_id GROUP BY p.id, r.reaction_type ORDER BY reaction_type LIMIT :limit OFFSET :offset;', {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 }

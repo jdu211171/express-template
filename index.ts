@@ -22,8 +22,8 @@ app.use('/reaction', reactionController);
 app.use('/comment', commentController);
 
 
-// app.listen(port, () => {
-//   console.log(`now listening on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`now listening on port ${port}`);
+});
 
 export const handler = serverless(app);
