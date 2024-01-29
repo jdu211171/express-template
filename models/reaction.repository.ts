@@ -14,6 +14,17 @@ class ReactionRepository {
         }
     }
 
+    async getAllReactionsByPostId(id: number): Promise<any> {
+        try {
+            return await db.query('SELECT reaction_type, COUNT(reaction_type) AS count FROM Reaction WHERE post_id = :post_id GROUP BY reaction_type', {
+                post_id: id
+            });
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getReactionById(user_id: any): Promise<any> {
         try {
             return await db.query('SELECT post_id, reaction_type FROM Reaction WHERE user_id = :user_id', {

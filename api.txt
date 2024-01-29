@@ -38,3 +38,13 @@
 /search: Search for posts based on keywords in content.
 
 * */
+
+
+/*
+
+todo:
+[O] reaction count
+[O] comment count
+[X] search
+
+*/

@@ -12,6 +12,19 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/all/:id', async (req, res) => {
+    try {
+        const reaction = await ReactionRepository.getAllReactionsByPostId(Number(req.params.id));
+        if (reaction) {
+            res.status(200).json(reaction).end();
+        } else {
+            res.status(404).json({ message: 'Reaction not found' }).end();
+        }
+    } catch (error: any) {
+        res.status(500).json({ message: error.message }).end();
+    }
+});
+
 router.get('/find', async (req, res) => {
     try {
         const reaction = await ReactionRepository.getReactionById(req.body.user.id);

@@ -12,6 +12,11 @@ GET http://localhost:3000/comment/all/3
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
+### Get all topic comment count
+GET http://localhost:3000/comment/count/3
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
 ### Update comment by id
 PUT http://localhost:3000/comment/update/3
 Content-Type: application/json
@@ -36,7 +41,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3
 }
 
 ### Get all topic AWS comment
-GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/all/9
+GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/all/3
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
 

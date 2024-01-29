@@ -3,6 +3,16 @@ import CommentRepository from "../models/comment.repository";
 
 const router = express.Router();
 
+router.get('/count/:id', async (req, res) => {
+    const post_id = Number(req.params.id);
+    try {
+        const comments = await CommentRepository.getAllCommentCountById(post_id);
+        return res.status(200).json(comments[0]).end();
+    } catch (error: any) {
+        return res.status(500).json({message: error.message}).end();
+    }
+});
+
 router.get('/all/:id', async (req, res) => {
     const currentLoad = Number(req.query.currentLoad) || 1;
     const limit = Number(req.query.limit) || 10;

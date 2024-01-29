@@ -10,6 +10,19 @@ class CommentRepository {
         });
     }
 
+    async getAllCommentCountById(post_id: number): Promise<any> {
+        try {
+            return db.query(
+                'SELECT COUNT(*) AS count FROM Comment WHERE post_id = :post_id', {
+                    post_id: post_id
+                }
+            );
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async allComments(post_id: number, lastId: number, limit: number): Promise<any> {
         try {
             return db.query(
