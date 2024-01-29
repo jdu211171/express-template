@@ -17,7 +17,7 @@ class PostRepository {
     allPosts(lastId, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('SELECT u.*, p.* FROM Post as p JOIN User as u ON p.user_id = u.id LIMIT :limit OFFSET :offset', {
+                return Database_1.default.query('SELECT u.*, p.*, reaction_type, COUNT(reaction_type) as count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction ON p.id = Reaction.post_id GROUP BY reaction_type LIMIT :limit OFFSET :offset', {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 });
@@ -28,6 +28,17 @@ class PostRepository {
             }
         });
     }
+    /*
+    * id: number
+    * content: string
+    * user_name: string
+    * user_id: number
+    * created_at: Date
+    * updated_at: Date
+    * reactions: {
+    *  reaction_type: number
+    * }
+    * */
     findPost(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

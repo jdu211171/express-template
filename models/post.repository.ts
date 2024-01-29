@@ -5,7 +5,7 @@ class PostRepository {
     async allPosts(lastId: number, limit: number): Promise<any> {
         try {
             return db.query(
-                'SELECT u.*, p.* FROM Post as p JOIN User as u ON p.user_id = u.id LIMIT :limit OFFSET :offset', {
+                'SELECT u.*, p.*, reaction_type, COUNT(reaction_type) as count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction ON p.id = Reaction.post_id GROUP BY reaction_type LIMIT :limit OFFSET :offset', {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 }
@@ -15,6 +15,18 @@ class PostRepository {
             throw error;
         }
     }
+
+    /*
+    * id: number
+    * content: string
+    * user_name: string
+    * user_id: number
+    * created_at: Date
+    * updated_at: Date
+    * reactions: {
+    *  reaction_type: number
+    * }
+    * */
 
     async findPost(id: number): Promise<any> {
         try {
