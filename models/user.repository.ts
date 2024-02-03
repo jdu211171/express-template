@@ -2,10 +2,11 @@ import db from '../connection/Database';
 
 class UsersRepository {
 
-    async createUser(data: { username: string }): Promise<any> {
+    async createUser(data: { username: string, devise_token: string }): Promise<any> {
         try {
-            return await db.query('INSERT INTO User (username) VALUE (:username)', {
-                username: data.username
+            return await db.query('INSERT INTO User (username, devise_token) VALUE (:username, :devise_token)', {
+                username: data.username,
+                devise_token: data.devise_token
             });
         } catch (error) {
             console.error(error);

@@ -1,6 +1,9 @@
 ### Create a new user
 POST http://localhost:3000/user/create
 Content-Type: application/json
+{
+  "devise_token": ewqwjafealjfeahlejflkaj
+}
 
 ### Update a username
 PUT http://localhost:3000/user/update
