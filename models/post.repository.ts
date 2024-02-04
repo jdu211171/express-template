@@ -4,8 +4,17 @@ class PostRepository {
 
     async allPosts(lastId: number, limit: number): Promise<any> {
         try {
-            return db.query(
-                'SELECT u.*, p.*, COUNT(c.id) as comment_count, r.reaction_type, COUNT(r.reaction_type) as reaction_count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction as r ON p.id = r.post_id LEFT JOIN Comment as c ON p.id = c.post_id GROUP BY p.id, r.reaction_type ORDER BY reaction_type LIMIT :limit OFFSET :offset;', {
+            return db.query('SELECT \n' +
+                '\tp.id,p.content,p.created_at,p.updated_at,\n' +
+                '    u.id AS user_id,u.username,\n' +
+                '    count(c.id) AS comment_count, count(r.id) AS reaction_count\n' +
+                'FROM Post as p\n' +
+                'INNER JOIN User AS u ON u.id = p.user_id\n' +
+                'LEFT JOIN Comment as c ON c.post_id = p.id\n' +
+                'LEFT JOIN Reaction as r ON r.post_id = p.id AND r.reaction_type = 1\n' +
+                'GROUP BY p.id\n' +
+                'ORDER BY p.created_at DESC\n' +
+                'LIMIT :limit OFFSET :offset;', {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 }
@@ -41,7 +50,7 @@ class PostRepository {
 
     async createPost(userId: number, content: string): Promise<any> {
         try {
-            return db.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)',{
+            return db.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)', {
                 content: content,
                 userId: userId,
                 createdAt: new Date()

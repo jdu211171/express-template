@@ -10,8 +10,8 @@ CREATE TABLE IF NOT EXISTS Post
     id         INT AUTO_INCREMENT PRIMARY KEY,
     content    TEXT                    NOT NULL,
     user_id    INT                     NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP               NULL,
+    created_at DATETIME DEFAULT NOW() NOT NULL,
+    updated_at DATETIME               NULL,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User (id)
 ) COLLATE = utf8mb4_unicode_ci;
 
@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS Comment
     sentence   TEXT                    NOT NULL,
     post_id    INT                     NOT NULL,
     user_id    INT                     NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP               NULL,
+    created_at DATETIME DEFAULT NOW() NOT NULL,
+    updated_at DATETIME               NULL,
     CONSTRAINT fk_post_id FOREIGN KEY (post_id) REFERENCES Post (id) ON DELETE CASCADE,
     CONSTRAINT fk_comment_user_id FOREIGN KEY (user_id) REFERENCES User (id)
 ) COLLATE = utf8mb4_unicode_ci;
