@@ -12,6 +12,15 @@ GET http://localhost:3000/post/all?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
+### Search post
+POST http://localhost:3000/post/search?currentLoad=1&limit=10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"keyword": "is a"
+}
+
 ### Get post by id
 GET http://localhost:3000/post/find/30
 Content-Type: application/json
@@ -25,6 +34,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1
 {
   "content": "Updated post content."
 }
+
+
 
 ### Delete post by id
 DELETE http://localhost:3000/post/delete/30
@@ -44,6 +55,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3
 GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/all?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+### Search AWS post
+POST https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/search?currentLoad=1&limit=10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"keyword": "is a"
+}
 
 ### Get AWS post by id
 GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/find/9

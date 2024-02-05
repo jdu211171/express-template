@@ -14,6 +14,17 @@ router.get('/all', async (req, res) => {
     }
 });
 
+router.post('/search', async (req, res) => {
+    const currentLoad = Number(req.query.currentLoad) || 1;
+    const limit = Number(req.query.limit) || 10;
+    try {
+        const posts = await PostRepository.search(currentLoad, limit, req.body.keyword);
+        return res.status(200).json(posts).end();
+    } catch (e: any) {
+        return res.status(500).json({message: e.message}).end();
+    }
+});
+
 router.get('/find/:id', async (req, res) => {
     try {
         const [post] = await PostRepository.findPost(Number(req.params.id));

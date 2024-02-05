@@ -20,11 +20,45 @@ class PostRepository {
             GROUP 
                 BY p.id
             ORDER 
-                BY p.created_at DESC
+                BY p.id DESC,p.created_at DESC
             LIMIT 
                 :limit OFFSET :offset;`, {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
+                }
+            );
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async search(lastId: number, limit: number, keyword: string): Promise<any> {
+        try {
+            return db.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            WHERE 
+                p.content LIKE :keyword
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
+                    limit: limit.toString(),
+                    offset: ((lastId - 1) * limit).toString(),
+                    keyword: `%${keyword}%`
                 }
             );
         } catch (error) {
@@ -70,10 +104,9 @@ class PostRepository {
 
     async createPost(userId: number, content: string): Promise<any> {
         try {
-            return db.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)', {
+            return db.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, NOW())', {
                 content: content,
-                userId: userId,
-                createdAt: new Date()
+                userId: userId
             });
         } catch (error) {
             console.error(error);
@@ -83,10 +116,9 @@ class PostRepository {
 
     async updatePost(id: number, content: string): Promise<any> {
         try {
-            return db.query('UPDATE Post SET content = :content, updated_at = :updated_at WHERE id = :id', {
+            return db.query('UPDATE Post SET content = :content, updated_at = NOW() WHERE id = :id', {
                 id: id,
-                content: content,
-                updated_at: new Date()
+                content: content
             });
         } catch (error) {
             console.error(error);
@@ -105,29 +137,29 @@ class PostRepository {
         }
     }
 
-    async getReactions(postId: number) {
-        try {
-            return db.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
-                post_id: postId
-            });
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
-
-    async addReaction(userId: number, postId: number, reactionType: number) {
-        try {
-            return db.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUE (:reaction_type, :user_id, :post_id)', {
-                reaction_type: reactionType,
-                user_id: userId,
-                post_id: postId
-            });
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
+    // async getReactions(postId: number) {
+    //     try {
+    //         return db.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
+    //             post_id: postId
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw error;
+    //     }
+    // }
+    //
+    // async addReaction(userId: number, postId: number, reactionType: number) {
+    //     try {
+    //         return db.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUE (:reaction_type, :user_id, :post_id)', {
+    //             reaction_type: reactionType,
+    //             user_id: userId,
+    //             post_id: postId
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw error;
+    //     }
+    // }
 
 }
 
