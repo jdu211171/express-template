@@ -52,8 +52,13 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
     try {
-        const deletedPost = await PostRepository.deletePost(Number(req.params.id));
-        return res.status(200).json({message: 'Deleted successfully!'}).end();
+        const [find] = await PostRepository.findPost(Number(req.params.id));
+        if (find.user_id === req.body.user.id) {
+            const deletedPost = await PostRepository.deletePost(Number(req.params.id));
+            return res.status(200).json({message: 'Deleted successfully!'}).end();
+        } else {
+            return res.status(403).json({message: 'Bad permissions!'}).end();
+        }
     } catch (e: any) {
         return res.status(500).json({message: e.message}).end();
     }

@@ -27,7 +27,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1
 }
 
 ### Delete post by id
-DELETE http://localhost:3000/post/delete/8
+DELETE http://localhost:3000/post/delete/30
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
