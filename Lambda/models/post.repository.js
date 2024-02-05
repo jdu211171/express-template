@@ -17,7 +17,25 @@ class PostRepository {
     allPosts(lastId, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('SELECT u.*, p.*, reaction_type, COUNT(reaction_type) as count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction ON p.id = Reaction.post_id GROUP BY reaction_type LIMIT :limit OFFSET :offset', {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 });

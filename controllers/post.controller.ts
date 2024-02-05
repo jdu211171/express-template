@@ -1,6 +1,5 @@
 import express from 'express';
 import PostRepository from "../models/post.repository";
-import {log} from "node:util";
 
 const router = express.Router();
 
@@ -21,15 +20,7 @@ router.get('/find/:id', async (req, res) => {
         if (!post) {
             return res.status(404).json({message: 'Post not found'}).end();
         }
-        return res.status(200).json({
-            id: post.id,
-            content: post.content,
-            user: {
-                id: post.user_id,
-                name: post.username,
-            },
-            created_at: post.created_at,
-        }).end();
+        return res.status(200).json(post).end();
     } catch (e: any) {
         return res.status(500).json({message: e.message}).end();
     }
@@ -38,7 +29,8 @@ router.get('/find/:id', async (req, res) => {
 router.post('/create', async (req, res) => {
     try {
         const newPost = await PostRepository.createPost(Number(req.body.user.id), req.body.content);
-        return res.status(200).json(newPost).end();
+        const [find] = await PostRepository.findPost(newPost.insertId);
+        return res.status(200).json(find).end();
     } catch (e: any) {
         return res.status(500).json({message: e.message}).end();
     }
@@ -46,8 +38,13 @@ router.post('/create', async (req, res) => {
 
 router.put('/update/:id', async (req, res) => {
     try {
-        const updatedPost = await PostRepository.updatePost(Number(req.params.id), req.body.content);
-        return res.status(200).json({message: 'Updated successfully!'}).end();
+        const [find] = await PostRepository.findPost(Number(req.params.id));
+        if (find.user_id === req.body.user.id) {
+            const updatedPost = await PostRepository.updatePost(Number(req.params.id), req.body.content);
+            return res.status(200).json({message: 'Updated successfully!'}).end();
+        } else {
+            return res.status(403).json({message: 'Bad permissions!'}).end();
+        }
     } catch (e: any) {
         return res.status(500).json({message: e.message}).end();
     }

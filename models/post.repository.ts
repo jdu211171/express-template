@@ -4,17 +4,25 @@ class PostRepository {
 
     async allPosts(lastId: number, limit: number): Promise<any> {
         try {
-            return db.query('SELECT \n' +
-                '\tp.id,p.content,p.created_at,p.updated_at,\n' +
-                '    u.id AS user_id,u.username,\n' +
-                '    count(c.id) AS comment_count, count(r.id) AS reaction_count\n' +
-                'FROM Post as p\n' +
-                'INNER JOIN User AS u ON u.id = p.user_id\n' +
-                'LEFT JOIN Comment as c ON c.post_id = p.id\n' +
-                'LEFT JOIN Reaction as r ON r.post_id = p.id AND r.reaction_type = 1\n' +
-                'GROUP BY p.id\n' +
-                'ORDER BY p.created_at DESC\n' +
-                'LIMIT :limit OFFSET :offset;', {
+            return db.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
                     limit: limit.toString(),
                     offset: ((lastId - 1) * limit).toString()
                 }
@@ -39,7 +47,19 @@ class PostRepository {
 
     async findPost(id: number): Promise<any> {
         try {
-            return db.query('SELECT * FROM Post JOIN User ON Post.user_id = User.id WHERE Post.id = :id', {
+            return db.query(`SELECT 
+                        p.id,p.content,p.user_id,
+                        DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                        IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                        u.username
+                    FROM 
+                        Post as p
+                    JOIN 
+                        User as u
+                    ON 
+                        p.user_id = u.id 
+                    WHERE 
+                        p.id = :id`, {
                 id: id
             });
         } catch (error) {

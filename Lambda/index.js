@@ -23,7 +23,7 @@ app.use(authorization_1.authorizeUser);
 app.use('/post', post_controller_1.default);
 app.use('/reaction', reaction_controller_1.default);
 app.use('/comment', comment_controller_1.default);
-// app.listen(port, () => {
-//   console.log(`now listening on port ${port}`);
-// });
+app.listen(port, () => {
+    console.log(`now listening on port ${port}`);
+});
 exports.handler = (0, serverless_http_1.default)(app);

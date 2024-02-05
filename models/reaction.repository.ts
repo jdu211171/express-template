@@ -1,11 +1,12 @@
 import db from '../connection/Database';
 
 class ReactionRepository {
-    async createReaction(user_id: number, reaction: { reaction_type: number, post_id: number }): Promise<any> {
+    async createReaction(user_id: number, post_id: number, reaction_type: number): Promise<any> {
         try {
-            return await db.query('INSERT INTO Reaction (reaction_type, post_id, user_id) VALUE (:reaction_type, :post_id, :user_id)', {
-                reaction_type: reaction.reaction_type,
-                post_id: reaction.post_id,
+            return await db.query(`INSERT INTO Reaction (reaction_type, post_id, user_id) 
+            VALUE (:reaction_type, :post_id, :user_id)`, {
+                reaction_type: reaction_type,
+                post_id: post_id,
                 user_id: user_id
             });
         } catch (error) {
@@ -25,10 +26,11 @@ class ReactionRepository {
         }
     }
 
-    async getReactionById(user_id: any): Promise<any> {
+    async getReactionById(user_id: number, post_id: number): Promise<any> {
         try {
-            return await db.query('SELECT post_id, reaction_type FROM Reaction WHERE user_id = :user_id', {
-                user_id: user_id
+            return await db.query('SELECT * FROM Reaction WHERE post_id = :post_id AND user_id = :user_id;', {
+                user_id: user_id,
+                post_id: post_id
             });
         } catch (error) {
             console.error(error);
@@ -36,12 +38,12 @@ class ReactionRepository {
         }
     }
 
-    async updateReaction(user_id: number, reaction: { reaction_type: number, post_id: number }): Promise<any> {
+    async updateReaction(user_id: number, post_id: number,reaction_type: number): Promise<any> {
         try {
             return await db.query('UPDATE Reaction SET reaction_type = :reaction_type WHERE user_id = :user_id AND post_id = :post_id', {
                 user_id: user_id,
-                reaction_type: reaction.reaction_type,
-                post_id: reaction.post_id
+                reaction_type: reaction_type,
+                post_id: post_id
             });
         } catch (error) {
             console.error(error);

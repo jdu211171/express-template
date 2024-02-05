@@ -47,6 +47,7 @@ class Database {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const [result] = yield this.database.execute(sql, values);
+                // console.log(result)
                 return result;
             }
             catch (error) {
