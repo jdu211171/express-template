@@ -19,7 +19,7 @@ router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const currentLoad = Number(req.query.currentLoad) || 1;
     const limit = Number(req.query.limit) || 10;
     try {
-        const posts = yield post_repository_1.default.allPosts(currentLoad, limit);
+        const posts = yield post_repository_1.default.allPosts(currentLoad, limit, Number(req.body.user.id));
         return res.status(200).json(posts).end();
     }
     catch (e) {
@@ -30,7 +30,27 @@ router.post('/search', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const currentLoad = Number(req.query.currentLoad) || 1;
     const limit = Number(req.query.limit) || 10;
     try {
-        const posts = yield post_repository_1.default.search(currentLoad, limit, req.body.keyword);
+        const posts = yield post_repository_1.default.search(currentLoad, limit, req.body.keyword, Number(req.body.user.id));
+        return res.status(200).json(posts).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.post('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id_list = req.body.list.map((id) => Number(id));
+        const posts = yield post_repository_1.default.list(id_list, req.body.user.id);
+        return res.status(200).json(posts).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.post('/search_list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id_list = req.body.list.map((id) => Number(id));
+        const posts = yield post_repository_1.default.searchList(id_list, req.body.keyword, req.body.user.id);
         return res.status(200).json(posts).end();
     }
     catch (e) {
@@ -44,6 +64,20 @@ router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function
             return res.status(404).json({ message: 'Post not found' }).end();
         }
         return res.status(200).json(post).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.get('/private', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const currentLoad = Number(req.query.currentLoad) || 1;
+    const limit = Number(req.query.limit) || 10;
+    try {
+        const posts = yield post_repository_1.default.userPost(currentLoad, limit, req.body.user.id);
+        if (!posts) {
+            return res.status(404).json({ message: 'Post not found' }).end();
+        }
+        return res.status(200).json(posts).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
