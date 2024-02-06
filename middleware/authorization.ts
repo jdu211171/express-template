@@ -23,7 +23,7 @@ export async function authorizeUser(
 
         req.body.user = {
             id: decoded.user_id,
-            username: decoded.username,
+            username: user[0].username,
         };
 
         return next();

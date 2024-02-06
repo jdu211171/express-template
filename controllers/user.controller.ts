@@ -2,13 +2,13 @@ import express from 'express';
 import UsersRepository from '../models/user.repository';
 import {createToken} from '../config/Token';
 import {createUniqueUsername} from '../config/Username';
-
+import {authorizeUser} from '../middleware/authorization';
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {
         const username = createUniqueUsername(Date.now());
-        const user = await UsersRepository.createUser({username});
+        const user = await UsersRepository.createUser(username, req.body.device_token);
         return res.status(200).json({
             id: user.insertId,
             username: username,
@@ -19,12 +19,12 @@ router.post('/create', async (req, res) => {
     }
 });
 
-router.put('/update', async (req, res) => {
+router.put('/update', authorizeUser,async (req, res) => {
     try {
-        const {id, username} = req.body;
-        const user = await UsersRepository.updateUser(id, {username});
+        const {username} = req.body;
+        const user = await UsersRepository.updateUser(Number(req.body.user.id), username);
         return res.status(200).json({
-            id: id,
+            id: Number(req.body.user.id),
             username: username,
         }).end();
     } catch (error: any) {

@@ -2,10 +2,11 @@ import db from '../connection/Database';
 
 class UsersRepository {
 
-    async createUser(data: { username: string }): Promise<any> {
+    async createUser(username: string, device_token: string): Promise<any> {
         try {
-            return await db.query('INSERT INTO User (username) VALUE (:username)', {
-                username: data.username
+            return await db.query('INSERT INTO User (username,device_token) VALUE (:username,:device_token)', {
+                username: username,
+                device_token: device_token
             });
         } catch (error) {
             console.error(error);
@@ -24,11 +25,11 @@ class UsersRepository {
         }
     }
 
-    async updateUser(id: number, data: { username: string }): Promise<any> {
+    async updateUser(id: number, username: string): Promise<any> {
         try {
             return await db.query('UPDATE User SET username = :username WHERE id = :id', {
                 id: id,
-                username: data.username
+                username: username
             });
         } catch (error) {
             console.error(error);
