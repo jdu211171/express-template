@@ -33,6 +33,7 @@ class Database {
     async query(sql: string, values?: any): Promise<any> {
         try {
             const [result] = await this.database.execute(sql, values);
+            // console.log(result)
             return result;
         } catch (error) {
             console.error('Failed to execute query.', error);

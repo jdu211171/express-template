@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 {
-  "content": "This is a new post content."
+	"content": "This is a new post content 123."
 }
 
 ### Get all posts
@@ -12,22 +12,69 @@ GET http://localhost:3000/post/all?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
-### Get post by id
-GET http://localhost:3000/post/find/1
+### Get User posts
+GET http://localhost:3000/post/private?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
-### Update post by id
-PUT http://localhost:3000/post/update/1
+
+### Search post
+POST http://localhost:3000/post/search?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 {
-  "content": "Updated post content."
+	"keyword": "is a"
 }
 
+### Get list
+POST http://localhost:3000/post/list
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"list": [
+		1,
+		2,
+		3,
+		4,
+		100
+	]
+}
+
+### Seach list
+POST http://localhost:3000/post/search_list
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"keyword": "Updated",
+	"list": [
+		1,
+		2,
+		3,
+		4
+	]
+}
+
+### Get post by id
+GET http://localhost:3000/post/find/30
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+### Update post by id
+PUT http://localhost:3000/post/update/30
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"content": "Updated post content."
+}
+
+
+
 ### Delete post by id
-DELETE http://localhost:3000/post/delete/8
+DELETE http://localhost:3000/post/delete/30
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
@@ -37,13 +84,22 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDYxMjY3NTcwNzdfMjgxYTNhY2EtNGRiMC00NDc5LTlhMWEtY2VhYTFjZjcyZDMzIiwidXNlcl9pZCI6MjIsImlhdCI6MTcwNjEyNjc1OCwiZXhwIjoxNzM3NjYyNzU4fQ.DwApLQfnps9RqK_G1frKswrjiv227Pz0vHlHogi5h90
 
 {
-  "content": "This is a new post content created by test."
+	"content": "This is a new post content created by test."
 }
 
 ### Get all AWS posts
 GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/all?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+### Search AWS post
+POST https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/search?currentLoad=1&limit=10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+{
+	"keyword": "is a"
+}
 
 ### Get AWS post by id
 GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/find/9
@@ -56,11 +112,16 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 
 {
-  "content": "Updated post content. This is a new post content created by test."
+	"content": "Updated post content. This is a new post content created by test."
 }
 
 ### Delete AWS post by id
 DELETE https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/delete/9
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+
+### Get AWS User posts
+GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/post/private?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
 

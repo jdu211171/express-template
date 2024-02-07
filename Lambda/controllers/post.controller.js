@@ -19,7 +19,38 @@ router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const currentLoad = Number(req.query.currentLoad) || 1;
     const limit = Number(req.query.limit) || 10;
     try {
-        const posts = yield post_repository_1.default.allPosts(currentLoad, limit);
+        const posts = yield post_repository_1.default.allPosts(currentLoad, limit, Number(req.body.user.id));
+        return res.status(200).json(posts).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.post('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const currentLoad = Number(req.query.currentLoad) || 1;
+    const limit = Number(req.query.limit) || 10;
+    try {
+        const posts = yield post_repository_1.default.search(currentLoad, limit, req.body.keyword, Number(req.body.user.id));
+        return res.status(200).json(posts).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.post('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id_list = req.body.list.map((id) => Number(id));
+        const posts = yield post_repository_1.default.list(id_list, req.body.user.id);
+        return res.status(200).json(posts).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.post('/search_list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id_list = req.body.list.map((id) => Number(id));
+        const posts = yield post_repository_1.default.searchList(id_list, req.body.keyword, req.body.user.id);
         return res.status(200).json(posts).end();
     }
     catch (e) {
@@ -32,15 +63,21 @@ router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function
         if (!post) {
             return res.status(404).json({ message: 'Post not found' }).end();
         }
-        return res.status(200).json({
-            id: post.id,
-            content: post.content,
-            user: {
-                id: post.user_id,
-                name: post.username,
-            },
-            created_at: post.created_at,
-        }).end();
+        return res.status(200).json(post).end();
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message }).end();
+    }
+}));
+router.get('/private', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const currentLoad = Number(req.query.currentLoad) || 1;
+    const limit = Number(req.query.limit) || 10;
+    try {
+        const posts = yield post_repository_1.default.userPost(currentLoad, limit, req.body.user.id);
+        if (!posts) {
+            return res.status(404).json({ message: 'Post not found' }).end();
+        }
+        return res.status(200).json(posts).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
@@ -49,7 +86,8 @@ router.get('/find/:id', (req, res) => __awaiter(void 0, void 0, void 0, function
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newPost = yield post_repository_1.default.createPost(Number(req.body.user.id), req.body.content);
-        return res.status(200).json(newPost).end();
+        const [find] = yield post_repository_1.default.findPost(newPost.insertId);
+        return res.status(200).json(find).end();
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
@@ -57,8 +95,14 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const updatedPost = yield post_repository_1.default.updatePost(Number(req.params.id), req.body.content);
-        return res.status(200).json({ message: 'Updated successfully!' }).end();
+        const [find] = yield post_repository_1.default.findPost(Number(req.params.id));
+        if (find.user_id === req.body.user.id) {
+            const updatedPost = yield post_repository_1.default.updatePost(Number(req.params.id), req.body.content);
+            return res.status(200).json({ message: 'Updated successfully!' }).end();
+        }
+        else {
+            return res.status(403).json({ message: 'Bad permissions!' }).end();
+        }
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();
@@ -66,8 +110,14 @@ router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, functi
 }));
 router.delete('/delete/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const deletedPost = yield post_repository_1.default.deletePost(Number(req.params.id));
-        return res.status(200).json({ message: 'Deleted successfully!' }).end();
+        const [find] = yield post_repository_1.default.findPost(Number(req.params.id));
+        if (find.user_id === req.body.user.id) {
+            const deletedPost = yield post_repository_1.default.deletePost(Number(req.params.id));
+            return res.status(200).json({ message: 'Deleted successfully!' }).end();
+        }
+        else {
+            return res.status(403).json({ message: 'Bad permissions!' }).end();
+        }
     }
     catch (e) {
         return res.status(500).json({ message: e.message }).end();

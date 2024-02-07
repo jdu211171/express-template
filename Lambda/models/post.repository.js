@@ -14,12 +14,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class PostRepository {
-    allPosts(lastId, limit) {
+    allPosts(lastId, limit, user_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('SELECT u.*, p.*, reaction_type, COUNT(reaction_type) as count FROM Post as p JOIN User as u ON p.user_id = u.id LEFT JOIN Reaction ON p.id = Reaction.post_id GROUP BY reaction_type LIMIT :limit OFFSET :offset', {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count,
+                CASE WHEN EXISTS (
+                    SELECT 1
+                    FROM Reaction AS r
+                    WHERE r.post_id = p.id
+                    AND r.user_id = :user_id
+                    AND r.reaction_type = 1
+                ) THEN 1 ELSE 0 END AS liked_status
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
                     limit: limit.toString(),
-                    offset: ((lastId - 1) * limit).toString()
+                    offset: ((lastId - 1) * limit).toString(),
+                    user_id: user_id
                 });
             }
             catch (error) {
@@ -29,21 +55,192 @@ class PostRepository {
         });
     }
     /*
-    * id: number
-    * content: string
-    * user_name: string
-    * user_id: number
-    * created_at: Date
-    * updated_at: Date
-    * reactions: {
-    *  reaction_type: number
-    * }
-    * */
+        * id: number
+        * content: string
+        * user_name: string
+        * user_id: number
+        * created_at: Date
+        * updated_at: Date
+        * reactions: {
+        *  reaction_type: number
+        * }
+        * */
+    search(lastId, limit, keyword, user_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count,
+                CASE WHEN EXISTS (
+                    SELECT 1
+                    FROM Reaction AS r
+                    WHERE r.post_id = p.id
+                    AND r.user_id = :user_id
+                    AND r.reaction_type = 1
+                ) THEN 1 ELSE 0 END AS liked_status
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            WHERE 
+                p.content LIKE :keyword
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
+                    limit: limit.toString(),
+                    offset: ((lastId - 1) * limit).toString(),
+                    keyword: `%${keyword}%`,
+                    user_id: user_id
+                });
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
+    list(id, user_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count,
+                CASE WHEN EXISTS (
+                    SELECT 1
+                    FROM Reaction AS r
+                    WHERE r.post_id = p.id
+                    AND r.user_id = :user_id
+                    AND r.reaction_type = 1
+                ) THEN 1 ELSE 0 END AS liked_status
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            WHERE p.id in (${id.join(',')})
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC;`, {
+                    user_id: user_id,
+                });
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
+    searchList(id, keyword, user_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                u.id AS user_id,u.username,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count,
+                CASE WHEN EXISTS (
+                    SELECT 1
+                    FROM Reaction AS r
+                    WHERE r.post_id = p.id
+                    AND r.user_id = :user_id
+                    AND r.reaction_type = 1
+                ) THEN 1 ELSE 0 END AS liked_status
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            WHERE 
+                p.id in (${id.join(',')}) AND p.content LIKE :keyword 
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC;`, {
+                    user_id: user_id,
+                    keyword: `%${keyword}%`,
+                });
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
     findPost(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('SELECT * FROM Post JOIN User ON Post.user_id = User.id WHERE Post.id = :id', {
+                return Database_1.default.query(`SELECT 
+                        p.id,p.content,p.user_id,
+                        DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                        IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                        u.username
+                    FROM 
+                        Post as p
+                    JOIN 
+                        User as u
+                    ON 
+                        p.user_id = u.id 
+                    WHERE 
+                        p.id = :id`, {
                     id: id
+                });
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
+    userPost(lastId, limit, user_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return Database_1.default.query(`SELECT
+                p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
+                IFNULL(DATE_FORMAT(p.updated_at, '%Y-%m-%d %H:%i:%s'), NULL) AS updated_at,
+                count(DISTINCT c.id) AS comment_count, count(DISTINCT r.id) AS reaction_count,
+                CASE WHEN EXISTS (
+                    SELECT 1
+                    FROM Reaction AS r
+                    WHERE r.post_id = p.id
+                    AND r.user_id = :user_id
+                    AND r.reaction_type = 1
+                ) THEN 1 ELSE 0 END AS liked_status
+            FROM 
+                Post as p
+            INNER JOIN 
+                User AS u ON u.id = p.user_id
+            LEFT JOIN 
+                Comment as c ON c.post_id = p.id
+            LEFT JOIN 
+                Reaction as r ON r.post_id = p.id AND r.reaction_type = 1
+            WHERE p.user_id = :user_id
+            GROUP 
+                BY p.id
+            ORDER 
+                BY p.id DESC,p.created_at DESC
+            LIMIT 
+                :limit OFFSET :offset;`, {
+                    limit: limit.toString(),
+                    offset: ((lastId - 1) * limit).toString(),
+                    user_id: user_id
                 });
             }
             catch (error) {
@@ -55,10 +252,9 @@ class PostRepository {
     createPost(userId, content) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, :createdAt)', {
+                return Database_1.default.query('INSERT INTO Post (content, user_id, created_at) VALUE (:content, :userId, NOW())', {
                     content: content,
-                    userId: userId,
-                    createdAt: new Date()
+                    userId: userId
                 });
             }
             catch (error) {
@@ -70,10 +266,9 @@ class PostRepository {
     updatePost(id, content) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return Database_1.default.query('UPDATE Post SET content = :content, updated_at = :updated_at WHERE id = :id', {
+                return Database_1.default.query('UPDATE Post SET content = :content, updated_at = NOW() WHERE id = :id', {
                     id: id,
-                    content: content,
-                    updated_at: new Date()
+                    content: content
                 });
             }
             catch (error) {
@@ -87,34 +282,6 @@ class PostRepository {
             try {
                 return Database_1.default.query('DELETE FROM Post WHERE id = :id', {
                     id: id
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
-        });
-    }
-    getReactions(postId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return Database_1.default.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
-                    post_id: postId
-                });
-            }
-            catch (error) {
-                console.error(error);
-                throw error;
-            }
-        });
-    }
-    addReaction(userId, postId, reactionType) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                return Database_1.default.query('INSERT INTO Reaction (reaction_type, user_id, post_id) VALUE (:reaction_type, :user_id, :post_id)', {
-                    reaction_type: reactionType,
-                    user_id: userId,
-                    post_id: postId
                 });
             }
             catch (error) {

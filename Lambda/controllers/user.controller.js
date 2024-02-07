@@ -16,11 +16,12 @@ const express_1 = __importDefault(require("express"));
 const user_repository_1 = __importDefault(require("../models/user.repository"));
 const Token_1 = require("../config/Token");
 const Username_1 = require("../config/Username");
+const authorization_1 = require("../middleware/authorization");
 const router = express_1.default.Router();
 router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const username = (0, Username_1.createUniqueUsername)(Date.now());
-        const user = yield user_repository_1.default.createUser({ username });
+        const user = yield user_repository_1.default.createUser(username, req.body.device_token);
         return res.status(200).json({
             id: user.insertId,
             username: username,
@@ -31,12 +32,12 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
         return res.status(500).json({ message: error.message }).end();
     }
 }));
-router.put('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/update', authorization_1.authorizeUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { id, username } = req.body;
-        const user = yield user_repository_1.default.updateUser(id, { username });
+        const { username } = req.body;
+        const user = yield user_repository_1.default.updateUser(Number(req.body.user.id), username);
         return res.status(200).json({
-            id: id,
+            id: Number(req.body.user.id),
             username: username,
         }).end();
     }

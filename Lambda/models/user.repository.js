@@ -14,11 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class UsersRepository {
-    createUser(data) {
+    createUser(username, device_token) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('INSERT INTO User (username) VALUE (:username)', {
-                    username: data.username
+                return yield Database_1.default.query('INSERT INTO User (username,device_token) VALUE (:username,:device_token)', {
+                    username: username,
+                    device_token: device_token
                 });
             }
             catch (error) {
@@ -40,12 +41,12 @@ class UsersRepository {
             }
         });
     }
-    updateUser(id, data) {
+    updateUser(id, username) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 return yield Database_1.default.query('UPDATE User SET username = :username WHERE id = :id', {
                     id: id,
-                    username: data.username
+                    username: username
                 });
             }
             catch (error) {

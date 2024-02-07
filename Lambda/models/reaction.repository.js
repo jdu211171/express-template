@@ -14,12 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class ReactionRepository {
-    createReaction(user_id, reaction) {
+    createReaction(user_id, post_id, reaction_type) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('INSERT INTO Reaction (reaction_type, post_id, user_id) VALUE (:reaction_type, :post_id, :user_id)', {
-                    reaction_type: reaction.reaction_type,
-                    post_id: reaction.post_id,
+                return yield Database_1.default.query(`INSERT INTO Reaction (reaction_type, post_id, user_id) 
+            VALUE (:reaction_type, :post_id, :user_id)`, {
+                    reaction_type: reaction_type,
+                    post_id: post_id,
                     user_id: user_id
                 });
             }
@@ -42,11 +43,12 @@ class ReactionRepository {
             }
         });
     }
-    getReactionById(user_id) {
+    getReactionById(user_id, post_id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('SELECT post_id, reaction_type FROM Reaction WHERE user_id = :user_id', {
-                    user_id: user_id
+                return yield Database_1.default.query('SELECT * FROM Reaction WHERE post_id = :post_id AND user_id = :user_id;', {
+                    user_id: user_id,
+                    post_id: post_id
                 });
             }
             catch (error) {
@@ -55,13 +57,13 @@ class ReactionRepository {
             }
         });
     }
-    updateReaction(user_id, reaction) {
+    updateReaction(user_id, post_id, reaction_type) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 return yield Database_1.default.query('UPDATE Reaction SET reaction_type = :reaction_type WHERE user_id = :user_id AND post_id = :post_id', {
                     user_id: user_id,
-                    reaction_type: reaction.reaction_type,
-                    post_id: reaction.post_id
+                    reaction_type: reaction_type,
+                    post_id: post_id
                 });
             }
             catch (error) {
