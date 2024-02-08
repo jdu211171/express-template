@@ -13,7 +13,7 @@ const selectedClient = {
 };
 const serviceAccount = {
   project_id: "react-native-notify-e8258",
-  private_key: "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQCYyVh/ISy0ISpx\nFlq9TTx1M7YSq1bzNHIbm+qBPa8YweTlLEWBIXaq1nYKBEgtkJJvu/CYiBeiC0HR\ngB92itKeqL/HdssPgtFrVt7m83xg+SbheH2mdRfuA7P3lw9U7o+aRNt0SzF2mo6u\n3/kf3/kakEToEdHYQM3/5vQrj0rW/d29/nXi1MmgCclc5Fl11WWC/CmhGActWt0h\nEDnHAmO8jOj7uyQ2crxvgLBkdl9+npt3adR4YTSxGb1E1Dn12BtLuDdAAvUc+bCb\nvNAWZ7brsI0l/y2fM6j3agUcJ/V2Unn68BRZ3n2aPsXOOCtt4hi2Zyzmlo1ej+T/\nvngnbXPBAgMBAAECgf9iI3KktjpwuZz5ZtKCJcpfvgeFlmkTbuycr1nCCk0eKe1N\nB1LdzxDaS0cmx/lUyzhEbQPt9fy4KWLtns6W5jTDlMEa7kMgg3bg67vhvSR3ZZKD\n4VFUSoJEcDx5HJ7Mfy/ed7w+xs3O0Rg1W8g5oTPwzBp2tnuD3Jx1c3QDRtdboFcd\nfVJgmHi1/TN1GyqpNEcPUc/cenGhtzDFDoggMRFW6HeGfeex8qmKCQ089yHtdOTC\nL7PVadCvL2GC9zwfjY1hKsbx8K4j50q+HwuB0cvtG0rWZ8mi/Sp+/j7jFmLQfv/f\nsR0GQI6ZuTxwwyGR3xiHqbZw/u34/Svnh/Rv7NECgYEAz8Kfv2uy50zAKDOm0pN2\n8XPTyn2QhM9XiWpnvSGjhj7wfhpqpAzUAx9wxWo/hHwUhDds67K2OkE0FsdJOxsw\nVx7EP3CVZg75PkRa6hz6dsHPXBLDfga5DKO8ukJhU0erzb6fQJqPF4JpmoQ9ggxN\nPFp/g2Pq5bsJVd/FqDee0rECgYEAvEMN2ykgwdYGVjmYaGb/Sn1Yo1uDJGW+Uz/0\nZi1XjuuAgGPcI6E83bk6r68rFrmegrmWag36JQAY7Ih8HSu+8VTMBmzpnhvJFyMS\ncRwuBLgXJUqU6TrVaH0S/DkZZrBwqxNxcW2XeDnXLMj1yErn/X9oA6TKaIoP6z2g\nGQ86VhECgYEAjC7KEyLcJ+1FitqvKU6O5wQ8V1i59qLgcbv2G0tjRuWY571zTxXI\nyAKi2NGD4iTGwx+SwsZm5o+wUd5Nry/9QgtkZ1nTtHVN/5GntmevKApFm96dQZ/P\npJOmeBbqDINDjSOd2L1w52/7SWMJDYK3ao21lDYK/M9i0SqX95Tv+UECgYA4LrKl\n4uI5totxlAKdtY8eRcX8CkVayVpBMebXz1Q//Jv+tM5ve6DUcoDHCTmMsJxTWts+\njylFfX/yptCTTAjRsIKqsDoPyy75zqekRcqd8epGYLmL2NjzM9BEoS2pbaJSC51h\nQllfsbM7VEW1HlWZWzpJTBZzmDAj/eIXWGoKYQKBgHXkAFivCqvTgBG8IIT+tdto\nhn8wwbW/Lz/S6hh1fHK7HyW3tpcPZrd+0qpT7PEq54IuC7kgmN9ScAXU1EcDmtNe\nngCy7GEKzmxHZ/U1OLbOKZVegeS2aeu8O0Dshtfq5xA053rj+28kiXgfDrLlbhBo\nlL7jjgADexICFE0r0SMo\n-----END PRIVATE KEY-----\n",
+  private_key: "-----BEGIN PRIVATE KEY-----MIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQCYyVh/ISy0ISpxFlq9TTx1M7YSq1bzNHIbm+qBPa8YweTlLEWBIXaq1nYKBEgtkJJvu/CYiBeiC0HRgB92itKeqL/HdssPgtFrVt7m83xg+SbheH2mdRfuA7P3lw9U7o+aRNt0SzF2mo6u3/kf3/kakEToEdHYQM3/5vQrj0rW/d29/nXi1MmgCclc5Fl11WWC/CmhGActWt0hEDnHAmO8jOj7uyQ2crxvgLBkdl9+npt3adR4YTSxGb1E1Dn12BtLuDdAAvUc+bCbvNAWZ7brsI0l/y2fM6j3agUcJ/V2Unn68BRZ3n2aPsXOOCtt4hi2Zyzmlo1ej+T/vngnbXPBAgMBAAECgf9iI3KktjpwuZz5ZtKCJcpfvgeFlmkTbuycr1nCCk0eKe1NB1LdzxDaS0cmx/lUyzhEbQPt9fy4KWLtns6W5jTDlMEa7kMgg3bg67vhvSR3ZZKD4VFUSoJEcDx5HJ7Mfy/ed7w+xs3O0Rg1W8g5oTPwzBp2tnuD3Jx1c3QDRtdboFcdfVJgmHi1/TN1GyqpNEcPUc/cenGhtzDFDoggMRFW6HeGfeex8qmKCQ089yHtdOTCL7PVadCvL2GC9zwfjY1hKsbx8K4j50q+HwuB0cvtG0rWZ8mi/Sp+/j7jFmLQfv/fsR0GQI6ZuTxwwyGR3xiHqbZw/u34/Svnh/Rv7NECgYEAz8Kfv2uy50zAKDOm0pN28XPTyn2QhM9XiWpnvSGjhj7wfhpqpAzUAx9wxWo/hHwUhDds67K2OkE0FsdJOxswVx7EP3CVZg75PkRa6hz6dsHPXBLDfga5DKO8ukJhU0erzb6fQJqPF4JpmoQ9ggxNPFp/g2Pq5bsJVd/FqDee0rECgYEAvEMN2ykgwdYGVjmYaGb/Sn1Yo1uDJGW+Uz/0Zi1XjuuAgGPcI6E83bk6r68rFrmegrmWag36JQAY7Ih8HSu+8VTMBmzpnhvJFyMScRwuBLgXJUqU6TrVaH0S/DkZZrBwqxNxcW2XeDnXLMj1yErn/X9oA6TKaIoP6z2gGQ86VhECgYEAjC7KEyLcJ+1FitqvKU6O5wQ8V1i59qLgcbv2G0tjRuWY571zTxXIyAKi2NGD4iTGwx+SwsZm5o+wUd5Nry/9QgtkZ1nTtHVN/5GntmevKApFm96dQZ/PpJOmeBbqDINDjSOd2L1w52/7SWMJDYK3ao21lDYK/M9i0SqX95Tv+UECgYA4LrKl4uI5totxlAKdtY8eRcX8CkVayVpBMebXz1Q//Jv+tM5ve6DUcoDHCTmMsJxTWts+jylFfX/yptCTTAjRsIKqsDoPyy75zqekRcqd8epGYLmL2NjzM9BEoS2pbaJSC51hQllfsbM7VEW1HlWZWzpJTBZzmDAj/eIXWGoKYQKBgHXkAFivCqvTgBG8IIT+tdtohn8wwbW/Lz/S6hh1fHK7HyW3tpcPZrd+0qpT7PEq54IuC7kgmN9ScAXU1EcDmtNengCy7GEKzmxHZ/U1OLbOKZVegeS2aeu8O0Dshtfq5xA053rj+28kiXgfDrLlbhBolL7jjgADexICFE0r0SMo-----END PRIVATE KEY-----",
   client_email: "firebase-adminsdk-zlwpu@react-native-notify-e8258.iam.gserviceaccount.com",
 };
 admin.initializeApp({
@@ -21,15 +21,8 @@ admin.initializeApp({
     databaseURL: 'https://react-native-notify-e8258.firebaseio.com',
 });
 class PostRepository {
-    userPost(currentLoad: number, limit: number, id: any) {
-        throw new Error('Method not implemented.');
-    }
-<<<<<<< HEAD
-    async allPosts(lastId: number, limit: number): Promise<any> {
-=======
 
     async allPosts(lastId: number, limit: number, user_id: number): Promise<any> {
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
         try {
             return db.query(`SELECT
                 p.id,p.content,DATE_FORMAT(p.created_at, '%Y-%m-%d %H:%i:%s') as created_at,
@@ -68,18 +61,6 @@ class PostRepository {
         }
     }
     /*
-<<<<<<< HEAD
-    * id: number
-    * content: string
-    * user_name: string
-    * user_id: number
-    * created_at: Date
-    * updated_at: Date
-    * reactions: {
-    *  reaction_type: number
-    * }
-    * */
-=======
         * id: number
         * content: string
         * user_name: string
@@ -207,7 +188,6 @@ class PostRepository {
         }
     }
 
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
     async findPost(id: number): Promise<any> {
         try {
             return db.query(`SELECT 
@@ -230,36 +210,6 @@ class PostRepository {
             throw error;
         }
     }
-<<<<<<< HEAD
-    async createPost(userId: number, content: string): Promise<any> {
-        try {
-          // Insert the new post into the Post table
-          const result = await db.query('INSERT INTO Post (content, user_id, created_at) VALUES (:content, :userId, :createdAt)', {
-            content: content,
-            userId: userId,
-            createdAt: new Date()
-          });
-    
-          // Get the ID of the newly inserted post
-          const postId = result.insertId;
-    
-          // Send notifications to all users using Firebase Cloud Messaging
-          const users = await db.query('SELECT id, devise_token FROM User');
-          const registrationTokens = users.map((user: any) => user.devise_token);
-    
-          if (registrationTokens.length > 0) {
-            const message = {
-              notification: {
-                title: 'New Post Created',
-                body: `A new post has been created.`,
-              },
-              tokens: registrationTokens,
-            };
-    
-            await admin.messaging().sendMulticast(message);
-          }
-          return result;
-=======
 
     async userPost(lastId: number, limit: number, user_id: number): Promise<any> {
         try {
@@ -306,7 +256,6 @@ class PostRepository {
                 content: content,
                 userId: userId
             });
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
         } catch (error) {
           console.error(error);
           throw error;
@@ -333,7 +282,6 @@ class PostRepository {
             throw error;
         }
     }
-<<<<<<< HEAD
     async getReactions(postId: number) {
         try {
             return db.query('SELECT reaction_type FROM Reaction WHERE post_id = :post_id', {
@@ -356,8 +304,6 @@ class PostRepository {
             throw error;
         }
     }
-=======
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
 
 }
 

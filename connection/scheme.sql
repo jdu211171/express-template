@@ -1,14 +1,8 @@
 CREATE TABLE IF NOT EXISTS User
 (
-<<<<<<< HEAD
-    id            INT AUTO_INCREMENT PRIMARY KEY,
-    username      VARCHAR(255) NOT NULL,
-    devise_token  VARCHAR(255) NOT NULL,
-=======
     id       INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     device_token VARCHAR(255) NOT NULL;
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
     CONSTRAINT unique_username UNIQUE (username)
 ) COLLATE = utf8mb4_unicode_ci;
 

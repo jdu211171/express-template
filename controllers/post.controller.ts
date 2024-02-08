@@ -98,8 +98,8 @@ router.post('/create', async (req, res) => {
         }
 
         return res.status(200).json(find).end();
-    } catch (e) {
-        return res.status(500).json({ message: e.message }).end();
+    } catch (error) {
+        return res.status(500).json({ message: error }).end();
     }
 });
 

@@ -7,13 +7,9 @@ const router = express.Router();
 
 router.post('/create', async (req, res) => {
     try {
-        const devise_token = req.body.devise_token;
+        const device_token = req.body.device_token;
         const username = createUniqueUsername(Date.now());
-<<<<<<< HEAD
-        const user = await UsersRepository.createUser({username, devise_token});
-=======
         const user = await UsersRepository.createUser(username, req.body.device_token);
->>>>>>> c916f94fdf3aa670f29d3ca0e2208ace84db1a83
         return res.status(200).json({
             id: user.insertId,
             username: username,

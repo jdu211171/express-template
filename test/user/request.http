@@ -1,12 +1,9 @@
 ### Create a new user
 POST http://localhost:3000/user/create
 Content-Type: application/json
-{
-  "devise_token": ewqwjafealjfeahlejflkaj
-}
 
 {
-	"device_token": "_123_"
+  "devise_token": "ewqwjafealjfeahlejflkaj"
 }
 
 ### Update a username
