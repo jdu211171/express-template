@@ -1,7 +1,14 @@
 import db from '../connection/Database';
 
 class UsersRepository {
-
+    async allUsers():Promise<any>{
+        try {
+            return await db.query("SELECT device_token FROM User WHERE device_token IS NOT NULL");
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
     async createUser(username: string, device_token: string): Promise<any> {
         try {

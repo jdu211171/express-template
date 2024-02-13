@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const post_repository_1 = __importDefault(require("../models/post.repository"));
+const user_repository_1 = __importDefault(require("../models/user.repository"));
+const configFCM_1 = __importDefault(require("../middleware/configFCM"));
 const router = express_1.default.Router();
 router.get('/all', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const currentLoad = Number(req.query.currentLoad) || 1;
@@ -87,10 +89,30 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const newPost = yield post_repository_1.default.createPost(Number(req.body.user.id), req.body.content);
         const [find] = yield post_repository_1.default.findPost(newPost.insertId);
+        const users = yield user_repository_1.default.allUsers();
+        const deviceTokens = users.map((user) => user.device_token); // change tokens for array string[]
+        deviceTokens.forEach((device_token) => {
+            console.log('Device Token:', device_token);
+        });
+        const messages = deviceTokens.map((device_token) => ({
+            notification: {
+                title: `${req.body.username}`,
+                body: `${req.body.content}`,
+            },
+            token: device_token,
+        }));
+        yield Promise.all(messages.map((message) => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                yield configFCM_1.default.send(message);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        })));
         return res.status(200).json(find).end();
     }
-    catch (e) {
-        return res.status(500).json({ message: e.message }).end();
+    catch (error) {
+        return res.status(500).json({ message: error }).end();
     }
 }));
 router.put('/update/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

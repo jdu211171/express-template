@@ -1,6 +1,8 @@
 import express from 'express';
 import PostRepository from "../models/post.repository";
 import UsersRepository from '../models/user.repository';
+import firebaseService from "../middleware/configFCM";
+import {messaging} from "firebase-admin";
 
 const router = express.Router();
 
@@ -72,30 +74,32 @@ router.get('/private', async (req, res) => {
     }
 });
 
-
-const firebaseService = require('../middleware/configFCM');
-
+interface User {
+    device_token: string;
+}
 router.post('/create', async (req, res) => {
     try {
         const newPost = await PostRepository.createPost(Number(req.body.user.id), req.body.content);
         const [find] = await PostRepository.findPost(newPost.insertId);
-
-        // Get device_token from the user associated with the post
-        const user = await UsersRepository.getUserById(req.body.user.id);
-
-        if (user && user.device_token) {
-            // Prepare FCM message
-            const message = {
-                notification: {
-                    title: 'New Post',
-                    body: `A new post has been created: ${req.body.content}`,
-                },
-                token: user.device_token,
-            };
-
-            // Send the FCM message
-            await firebaseService.send(message);
-        }
+        const users: User[] = await UsersRepository.allUsers();
+        const deviceTokens: string[] = users.map((user: User) => user.device_token);  // change tokens for array string[]
+        deviceTokens.forEach((device_token: string) => {
+            console.log('Device Token:', device_token);
+        });
+        const messages = deviceTokens.map((device_token: string) => ({
+            notification: {
+                title: `${req.body.user.username}`,
+                body: `${req.body.content}`,
+            },
+            token: device_token,
+        }));
+        await Promise.all(messages.map(async (message: any) => {
+            try {
+                await firebaseService.send(message);
+            } catch (e) {
+                console.log(e);
+            }
+        }));
 
         return res.status(200).json(find).end();
     } catch (error) {

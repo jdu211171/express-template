@@ -45,14 +45,3 @@ CREATE TABLE IF NOT EXISTS Reaction
 
 CREATE INDEX post_id ON Reaction (post_id);
 CREATE INDEX user_id_reaction ON Reaction (user_id);
-
-CREATE TABLE IF NOT EXISTS Notification
-(
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    user_id    INT                     NOT NULL,
-    post_id    INT                     NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW() NOT NULL,
-    is_read    BOOLEAN DEFAULT FALSE   NOT NULL,
-    CONSTRAINT fk_notification_user_id FOREIGN KEY (user_id) REFERENCES User (id),
-    CONSTRAINT fk_notification_post_id FOREIGN KEY (post_id) REFERENCES Post (id)
-) COLLATE = utf8mb4_unicode_ci;

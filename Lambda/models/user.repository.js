@@ -14,10 +14,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Database_1 = __importDefault(require("../connection/Database"));
 class UsersRepository {
+    allUsers() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                return yield Database_1.default.query("SELECT device_token FROM User WHERE device_token IS NOT NULL");
+            }
+            catch (error) {
+                console.error(error);
+                throw error;
+            }
+        });
+    }
     createUser(username, device_token) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                return yield Database_1.default.query('INSERT INTO User (username,device_token) VALUE (:username,:device_token)', {
+                return yield Database_1.default.query('INSERT INTO User (username, device_token) VALUE (:username,:device_token)', {
                     username: username,
                     device_token: device_token
                 });

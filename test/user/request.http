@@ -1,9 +1,13 @@
 ### Create a new user
+### devices [
+#    'dqPjaUoDRYGYq82ikQMgPI:APA91bER_ykbFX8q7Guf3-FxR0Rj_7VJHvr9ZQPrS26KrEFkQ3m--2MWf1v1Nh6QiAs0SCEXHQkWeRFDyQVfRJuRTxltH-70lLSRmLT7VMc1zN_bHiE10kv7mgBffWF-6ULR13YL--8r',
+#    'dLq4rqabT5urztlcWm6rMD:APA91bGD_V92EVahWeG1fNn0a061GzaPae9XSOvThesc2LcEl3Go3if3BSUYB-PTJUzxwpeHNCYOVUgbF5dZDH8fpA5O28zyzHy1-dJdSfu6LNIkfRNbEvXZFMg6uEIzBRHyNxpR06cb',
+#  ],
 POST http://localhost:3000/user/create
 Content-Type: application/json
 
 {
-  "devise_token": "ewqwjafealjfeahlejflkaj"
+  "device_token": "c-ekwsAcQ4WGH2YMZBgQU_:APA91bEOcwB-o8B3lwjgLUT_6319THPLMnx_SeoFSb4xP-UpCE_6r5nNirQnd5eD4q3_LF7Gnzt6RJoCfGfp2TKg0T5yVOFRElv2YUQMiv51iNdt0PDetUSzET0f4H-0t38S4okYTJBU"
 }
 
 ### Update a username
