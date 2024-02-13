@@ -8,7 +8,7 @@ import {authorizeUser} from "./middleware/authorization";
 import serverless from 'serverless-http';
 import cors from "cors";
 
-const port = 3000;
+const port = 3001;
 
 const app: Express = express();
 
