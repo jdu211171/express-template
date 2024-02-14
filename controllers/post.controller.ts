@@ -83,9 +83,7 @@ router.post('/create', async (req, res) => {
         const [find] = await PostRepository.findPost(newPost.insertId);
         const users: User[] = await UsersRepository.allUsers();
         const deviceTokens: string[] = users.map((user: User) => user.device_token);  // change tokens for array string[]
-        deviceTokens.forEach((device_token: string) => {
-            console.log('Device Token:', device_token);
-        });
+        console.log(deviceTokens);
         const messages = deviceTokens.map((device_token: string) => ({
             notification: {
                 title: `${req.body.user.username}`,
@@ -93,14 +91,16 @@ router.post('/create', async (req, res) => {
             },
             token: device_token,
         }));
-        await Promise.all(messages.map(async (message: any) => {
+        console.log(messages.length)
+        await Promise.all(messages.map(async (message: any,index) => {
+            console.log(index)
             try {
                 await firebaseService.send(message);
-            } catch (e) {
-                console.log(e);
+            } catch (error) {
+                console.log(message)
+                console.log('error is ', error);
             }
         }));
-
         return res.status(200).json(find).end();
     } catch (error) {
         return res.status(500).json({ message: error }).end();

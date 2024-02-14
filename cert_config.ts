@@ -1,6 +1,15 @@
-import {ServiceAccount} from "firebase-admin"
+import { ServiceAccount } from "firebase-admin";
 
-export default {
+export const firebaseConfig = {
+    apiKey: 'AIzaSyAEP0nT_lFFlPhmtjveTV2es8bTrapxHyQ',
+    authDomain: 'react-native-notify-e8258.firebaseapp.com',
+    projectId: 'react-native-notify-e8258',
+    storageBucket: 'react-native-notify-e8258.appspot.com',
+    messagingSenderId: '826185290693',
+    appId: '1:826185290693:android:8a9342aca2a61c744ff1ac',
+};
+
+export const serviceAccount: ServiceAccount = {
     "type": "service_account",
     "project_id": "react-native-notify-e8258",
     "private_key_id": "013fa3de213c2fcfacfe828868cbcd9e900fb1b8",

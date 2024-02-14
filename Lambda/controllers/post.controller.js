@@ -96,7 +96,7 @@ router.post('/create', (req, res) => __awaiter(void 0, void 0, void 0, function*
         });
         const messages = deviceTokens.map((device_token) => ({
             notification: {
-                title: `${req.body.username}`,
+                title: `${req.body.user.username}`,
                 body: `${req.body.content}`,
             },
             token: device_token,

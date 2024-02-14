@@ -3,7 +3,7 @@
 #    'dqPjaUoDRYGYq82ikQMgPI:APA91bER_ykbFX8q7Guf3-FxR0Rj_7VJHvr9ZQPrS26KrEFkQ3m--2MWf1v1Nh6QiAs0SCEXHQkWeRFDyQVfRJuRTxltH-70lLSRmLT7VMc1zN_bHiE10kv7mgBffWF-6ULR13YL--8r',
 #    'dLq4rqabT5urztlcWm6rMD:APA91bGD_V92EVahWeG1fNn0a061GzaPae9XSOvThesc2LcEl3Go3if3BSUYB-PTJUzxwpeHNCYOVUgbF5dZDH8fpA5O28zyzHy1-dJdSfu6LNIkfRNbEvXZFMg6uEIzBRHyNxpR06cb',
 #  ],
-POST http://localhost:3000/user/create
+POST http://localhost:3001/user/create
 Content-Type: application/json
 
 {
@@ -11,12 +11,12 @@ Content-Type: application/json
 }
 
 ### Update a username
-PUT http://localhost:3000/user/update
+PUT http://localhost:3001/user/update
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDcyMjEwNDM0NjdfODAxNzk5ZjYtYmM1Yy00YTRjLWE5ZjQtOGRiMWMzMWI3OTAzIiwidXNlcl9pZCI6NDksImlhdCI6MTcwNzIyMTA0NCwiZXhwIjoxNzM4NzU3MDQ0fQ.NgsHojOOsCXIdlevV2tS7ENYeFgwGe-zVIJh7IoxfWI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 {
-	"username": "Yasuke"
+	"username": "Nur Islom"
 }
 
 ### Create a new AWS user

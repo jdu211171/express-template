@@ -22,7 +22,7 @@ router.get('/all/:id', async (req: Request, res: Response) => {
     }
 });
 
-/*router.post('/create/:id', async (req, res) => {
+router.post('/create/:id', async (req, res) => {
     try {
         const created_comment = await CommentRepository.createComment(Number(req.params.id), req.body.sentence, Number(req.body.user.id));
         const [find] = await CommentRepository.findComment(created_comment.insertId);
@@ -30,7 +30,7 @@ router.get('/all/:id', async (req: Request, res: Response) => {
     } catch (error: any) {
         res.status(500).json({message: error.message}).end();
     }
-});*/
+});
 
 
 router.put('/update/:id', async (req: Request, res: Response) => {
@@ -63,33 +63,33 @@ router.delete('/delete/:id', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/create/:id', async (req: Request, res: Response) => {
-    try {
-        const created_comment = await CommentRepository.createComment(Number(req.params.id), req.body.sentence, Number(req.body.user.id));
-        const [find] = await CommentRepository.findComment(created_comment.insertId);
-        res.status(200).json(find).end();
-        const post = await PostRepository.findPost(Number(req.params.id));
-        const user = await UsersRepository.getUserById(post[0].user_id);
-
-        const deviceToken = user[0].device_token;
-        const message = {
-            notification: {
-                title: `${req.body.user.username}`,
-                body: `${req.body.sentence}`,
-            },
-            token: deviceToken,
-        };
-        return await new Promise<void>(async (resolve, reject) => {
-            try {
-                await firebaseService.send(message);
-                resolve();
-            } catch (e) {
-                reject(e);
-            }
-        });
-    } catch (error) {
-        return res.status(500).json({ message: error }).end();
-    }
-})
+// router.post('/create/:id', async (req: Request, res: Response) => {
+//     try {
+//         const created_comment = await CommentRepository.createComment(Number(req.params.id), req.body.sentence, Number(req.body.user.id));
+//         const [find] = await CommentRepository.findComment(created_comment.insertId);
+//         res.status(200).json(find).end();
+//         const post = await PostRepository.findPost(Number(req.params.id));
+//         const user = await UsersRepository.getUserById(post[0].user_id);
+//
+//         const deviceToken = user[0].device_token;
+//         const message = {
+//             notification: {
+//                 title: `${req.body.user.username}`,
+//                 body: `${req.body.sentence}`,
+//             },
+//             token: deviceToken,
+//         };
+//         return await new Promise<void>(async (resolve, reject) => {
+//             try {
+//                 await firebaseService.send(message);
+//                 resolve();
+//             } catch (e) {
+//                 reject(e);
+//             }
+//         });
+//     } catch (error) {
+//         return res.status(500).json({ message: error }).end();
+//     }
+// })
 
 export default router;

@@ -13,7 +13,7 @@ const comment_controller_1 = __importDefault(require("./controllers/comment.cont
 const authorization_1 = require("./middleware/authorization");
 const serverless_http_1 = __importDefault(require("serverless-http"));
 const cors_1 = __importDefault(require("cors"));
-const port = 3000;
+const port = 3001;
 const app = (0, express_1.default)();
 app.use(function (req, res, next) {
     res.setHeader("Content-Type", "application/json");

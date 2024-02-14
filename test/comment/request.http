@@ -1,30 +1,30 @@
 ### Create a new comment
-POST http://localhost:3001/comment/create/166
+POST http://localhost:3001/comment/create/15
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 {
-  "sentence": "This is a new comment for third post"
+  "sentence": "This is a new comment- 3"
 }
 
 ### Get all topic comment
 GET http://localhost:3001/comment/all/3?currentLoad=1&limit=10
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 ### Update comment by id
-PUT http://localhost:3001/comment/update/15
+PUT http://localhost:3001/comment/update/8
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 {
-  "sentence": "No, sorry, for troubling"
+  "sentence": "check update comment"
 }
 
 ### Delete comment by id
-DELETE http://localhost:3001/comment/delete/3
+DELETE http://localhost:3001/comment/delete/8
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDU4OTg1MzM0NTRfMmVkOWJkODMtNzM4Mi00ZDUyLWEwNjYtOWU3NjE1MWRhMTVkIiwidXNlcl9pZCI6MTgsImlhdCI6MTcwNTg5ODUzNH0.CygPJK8Zf_CA-ke2_Va1vv8S_f95T3T5Q_kYPL1d9Q4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 ### Get all AWS topic comment count
 GET https://cgfop8siv2.execute-api.ap-northeast-1.amazonaws.com/api/comment/count/3
