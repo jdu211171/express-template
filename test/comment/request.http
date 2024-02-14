@@ -1,19 +1,19 @@
 ### Create a new comment
-POST http://localhost:3001/comment/create/15
+POST http://localhost:3001/comment/create/62
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 {
-  "sentence": "This is a new comment- 3"
+  "sentence": "This is a new comment by Nurudeen"
 }
 
 ### Get all topic comment
-GET http://localhost:3001/comment/all/3?currentLoad=1&limit=10
+GET http://localhost:3001/comment/all/62?currentLoad=1&limit=10
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 ### Update comment by id
-PUT http://localhost:3001/comment/update/8
+PUT http://localhost:3001/comment/update/11
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
@@ -22,7 +22,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1
 }
 
 ### Delete comment by id
-DELETE http://localhost:3001/comment/delete/8
+DELETE http://localhost:3001/comment/delete/11
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 

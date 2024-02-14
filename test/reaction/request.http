@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE3MDc5MDQ1MjUxMzRfODZiODYzOGEtNTYxNS00NDkzLTk1MWMtOGFiZmFhMDYyZTUyIiwidXNlcl9pZCI6OSwiaWF0IjoxNzA3OTA0NTI1LCJleHAiOjE3Mzk0NDA1MjV9.SsR9SkYdmZJLMYiCeSOxg8QXZ3PObgA42-hUAzR2vNU
 
 {
-  "post_id": 8
+  "post_id": 62
 }
 
 ### AWS Toggle reaction
